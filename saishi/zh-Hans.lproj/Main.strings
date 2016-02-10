@@ -1,0 +1,57 @@
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "3TJ-Pu-rKt"; */
+"3TJ-Pu-rKt.title" = "Root View Controller";
+
+/* Class = "UITabBarItem"; title = "文件"; ObjectID = "6FA-ui-A9Z"; */
+"6FA-ui-A9Z.title" = "文件";
+
+/* Class = "UIButton"; normalTitle = "登陆"; ObjectID = "6gP-xT-Hjj"; */
+"6gP-xT-Hjj.normalTitle" = "登陆";
+
+/* Class = "UIButton"; normalTitle = "检查更新"; ObjectID = "9Rl-Em-BnI"; */
+"9Rl-Em-BnI.normalTitle" = "检查更新";
+
+/* Class = "UIButton"; normalTitle = "修改密码"; ObjectID = "HoA-A8-n7V"; */
+"HoA-A8-n7V.normalTitle" = "修改密码";
+
+/* Class = "UILabel"; text = "账号"; ObjectID = "WYw-jf-t7V"; */
+"WYw-jf-t7V.text" = "账号";
+
+/* Class = "UITabBarItem"; title = "我"; ObjectID = "XJX-MV-orq"; */
+"XJX-MV-orq.title" = "我";
+
+/* Class = "UITabBarItem"; title = "动态"; ObjectID = "XV4-ik-dB9"; */
+"XV4-ik-dB9.title" = "动态";
+
+/* Class = "UITabBarItem"; title = "通知"; ObjectID = "XkZ-JL-Q5c"; */
+"XkZ-JL-Q5c.title" = "通知";
+
+/* Class = "UIButton"; normalTitle = "退出登录"; ObjectID = "Z5j-xu-1lj"; */
+"Z5j-xu-1lj.normalTitle" = "退出登录";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "dho-mo-T8f"; */
+"dho-mo-T8f.title" = "Root View Controller";
+
+/* Class = "UITextView"; text = "我的信息："; ObjectID = "jH0-bN-tim"; */
+"jH0-bN-tim.text" = "我的信息：";
+
+/* Class = "UILabel"; text = "新密码"; ObjectID = "jfS-TM-jdm"; */
+"jfS-TM-jdm.text" = "新密码";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "oVf-Wc-S0v"; */
+"oVf-Wc-S0v.title" = "Root View Controller";
+
+/* Class = "UIButton"; normalTitle = "确定"; ObjectID = "rYI-0V-w5m"; */
+"rYI-0V-w5m.normalTitle" = "确定";
+
+/* Class = "UITabBarItem"; title = "日程"; ObjectID = "t7t-ba-kbm"; */
+"t7t-ba-kbm.title" = "日程";
+
+/* Class = "UINavigationItem"; title = "我"; ObjectID = "xqZ-hi-R3d"; */
+"xqZ-hi-R3d.title" = "我";
+
+/* Class = "UILabel"; text = "密码"; ObjectID = "zfQ-6k-HET"; */
+"zfQ-6k-HET.text" = "密码";
+
+/* Class = "UILabel"; text = "旧密码"; ObjectID = "zpm-g5-r47"; */
+"zpm-g5-r47.text" = "旧密码";
