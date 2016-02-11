@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		551DC2588C2879950E2C26A8 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B756ABB349AE6A052C34565 /* libPods.a */; };
 		6841FA8E1C631BC8004BACEA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6841FA8D1C631BC8004BACEA /* main.m */; };
 		6841FA911C631BC8004BACEA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6841FA901C631BC8004BACEA /* AppDelegate.m */; };
 		6841FA941C631BC8004BACEA /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6841FA931C631BC8004BACEA /* loginViewController.m */; };
@@ -43,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		242CFB8DB7AE0C90335BDFE1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		4B756ABB349AE6A052C34565 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		56A6ACCFAFB0816E459F06C8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		6841FA891C631BC8004BACEA /* saishi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = saishi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6841FA8D1C631BC8004BACEA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6841FA8F1C631BC8004BACEA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -75,6 +79,8 @@
 		687CDC871C68FD5F0094F581 /* myselfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myselfViewController.m; sourceTree = "<group>"; };
 		687CDC8A1C6901AC0094F581 /* changePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = changePasswordViewController.h; sourceTree = "<group>"; };
 		687CDC8B1C6901AC0094F581 /* changePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = changePasswordViewController.m; sourceTree = "<group>"; };
+		E95565101C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		E95565111C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551DC2588C2879950E2C26A8 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D0CB8C8597CDBD9421E42FD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				242CFB8DB7AE0C90335BDFE1 /* Pods.debug.xcconfig */,
+				56A6ACCFAFB0816E459F06C8 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		6841FA801C631BC8004BACEA = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +125,8 @@
 				6841FAA51C631BC8004BACEA /* saishiTests */,
 				6841FAB01C631BC8004BACEA /* saishiUITests */,
 				6841FA8A1C631BC8004BACEA /* Products */,
+				5D0CB8C8597CDBD9421E42FD /* Pods */,
+				C859EC088FD0C2A2B40E2CBC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -284,6 +302,14 @@
 			name = changePasswordViewController;
 			sourceTree = "<group>";
 		};
+		C859EC088FD0C2A2B40E2CBC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4B756ABB349AE6A052C34565 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,9 +317,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6841FAB61C631BC8004BACEA /* Build configuration list for PBXNativeTarget "saishi" */;
 			buildPhases = (
+				16EF9DF316B1C4729FFA9CE9 /* Check Pods Manifest.lock */,
 				6841FA851C631BC8004BACEA /* Sources */,
 				6841FA861C631BC8004BACEA /* Frameworks */,
 				6841FA871C631BC8004BACEA /* Resources */,
+				774730A081F90DA38E40B081 /* Embed Pods Frameworks */,
+				1394F33B13BAA72355699165 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -409,6 +438,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1394F33B13BAA72355699165 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		16EF9DF316B1C4729FFA9CE9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		774730A081F90DA38E40B081 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6841FA851C631BC8004BACEA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -464,6 +541,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6841FA961C631BC8004BACEA /* Base */,
+				E95565111C6B94B600F3FEFB /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -472,6 +550,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6841FA9B1C631BC8004BACEA /* Base */,
+				E95565101C6B94B600F3FEFB /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -515,7 +594,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -552,7 +631,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -561,6 +640,7 @@
 		};
 		6841FAB71C631BC8004BACEA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242CFB8DB7AE0C90335BDFE1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = saishi/Info.plist;
@@ -572,6 +652,7 @@
 		};
 		6841FAB81C631BC8004BACEA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56A6ACCFAFB0816E459F06C8 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = saishi/Info.plist;
