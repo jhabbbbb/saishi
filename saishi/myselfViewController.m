@@ -8,8 +8,11 @@
 
 #import "myselfViewController.h"
 #import "changePasswordViewController.h"
+#import "loginViewController.h"
 
 @interface myselfViewController ()
+
+@property (nonatomic) BOOL logoutPermit;
 
 @end
 
@@ -25,6 +28,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+/*- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"changePassword"]){
+        return YES;
+    }
+    if ([identifier isEqualToString:@"logout"]){
+        NSLog(@"che");
+        return self.logoutPermit;
+    }
+    return NO;
+}*/
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"changePassword"]){
@@ -35,5 +50,20 @@
     }
 }
 
+- (IBAction)logout:(UIButton *)sender {
+    self.logoutPermit = NO;
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"" message:@"确定要注销吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1){
+        
+        loginViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
+        [self presentViewController:vc animated:YES completion:^{
+        }];
+    }
+}
 
 @end

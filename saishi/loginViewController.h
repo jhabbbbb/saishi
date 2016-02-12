@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
+#import "UIKit+AFNetworking.h"
 
-@interface loginViewController : UIViewController
+@interface loginViewController : UIViewController<UITextFieldDelegate>
 
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "user.h"
-@interface myselfViewController : UIViewController
+@interface myselfViewController : UIViewController<UIAlertViewDelegate>
 
 @property (strong, nonatomic) user *me;
 
