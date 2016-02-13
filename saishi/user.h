@@ -14,10 +14,8 @@
 @property (strong, nonatomic) NSString *portrait;
 @property (strong, nonatomic) NSString *realName;
 
-- (BOOL)checkPassword:(NSString *)password;
-
 - (void)changePassword:(NSString *)password;
 
-- (void)changeportrait:(NSString *)newPortrait;
+- (void)changePortrait:(NSString *)newPortrait;
 
 @end

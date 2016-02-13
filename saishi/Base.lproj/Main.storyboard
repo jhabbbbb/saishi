@@ -359,7 +359,7 @@
             </objects>
             <point key="canvasLocation" x="912" y="2965"/>
         </scene>
-        <!--Change Password View Controller-->
+        <!--修改密码-->
         <scene sceneID="ybj-kS-UR4">
             <objects>
                 <viewController id="nmf-1P-Rdk" customClass="changePasswordViewController" sceneMemberID="viewController">
@@ -407,7 +407,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.61960784313725492" green="0.792156862745098" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yk9-UO-Izq" firstAttribute="bottom" secondItem="zpm-g5-r47" secondAttribute="bottom" id="1qG-N5-KPU"/>
                             <constraint firstItem="yk9-UO-Izq" firstAttribute="centerY" secondItem="b0n-qq-agX" secondAttribute="centerY" constant="-42" id="7sn-j5-0wU"/>
@@ -421,7 +421,7 @@
                             <constraint firstItem="XXj-6T-fYN" firstAttribute="centerX" secondItem="b0n-qq-agX" secondAttribute="centerX" constant="20" id="zrc-eV-lxW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="EBh-34-8P0"/>
+                    <navigationItem key="navigationItem" title="修改密码" id="EBh-34-8P0"/>
                     <connections>
                         <outlet property="oldPassword" destination="yk9-UO-Izq" id="dhd-Qn-PGv"/>
                         <outlet property="password" destination="XXj-6T-fYN" id="vuq-MN-SBc"/>
@@ -539,7 +539,6 @@
                                 </state>
                                 <connections>
                                     <action selector="login:" destination="4GO-Zh-bDZ" eventType="touchDown" id="xrH-3N-OhJ"/>
-                                    <segue destination="a6Y-L2-85w" kind="modal" identifier="login" id="VS5-Vk-GM0"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 账户/手机" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBj-9I-abY">
@@ -585,7 +584,7 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="OxB-AA-fpX">
             <objects>
-                <tabBarController id="a6Y-L2-85w" customClass="mainTabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" id="a6Y-L2-85w" customClass="mainTabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="c5d-qg-Kou"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="MxR-II-reQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>

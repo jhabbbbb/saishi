@@ -25,6 +25,7 @@
 		687CDC781C68FB0A0094F581 /* mainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC771C68FB0A0094F581 /* mainTabBarController.m */; };
 		687CDC881C68FD5F0094F581 /* myselfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC871C68FD5F0094F581 /* myselfViewController.m */; };
 		687CDC8C1C6901AC0094F581 /* changePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC8B1C6901AC0094F581 /* changePasswordViewController.m */; };
+		68811FBD1C6EF06C001048FF /* notificationList.m in Sources */ = {isa = PBXBuildFile; fileRef = 68811FBC1C6EF06C001048FF /* notificationList.m */; };
 		D1CAE73175563635834B6B18 /* libPods-saishi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2464FC2240297C48BF45B6 /* libPods-saishi.a */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,8 @@
 		687CDC871C68FD5F0094F581 /* myselfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myselfViewController.m; sourceTree = "<group>"; };
 		687CDC8A1C6901AC0094F581 /* changePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = changePasswordViewController.h; sourceTree = "<group>"; };
 		687CDC8B1C6901AC0094F581 /* changePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = changePasswordViewController.m; sourceTree = "<group>"; };
+		68811FBB1C6EF06C001048FF /* notificationList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = notificationList.h; sourceTree = "<group>"; };
+		68811FBC1C6EF06C001048FF /* notificationList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = notificationList.m; sourceTree = "<group>"; };
 		BA2464FC2240297C48BF45B6 /* libPods-saishi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-saishi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E95565101C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E95565111C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 			children = (
 				687CDC6D1C68F16B0094F581 /* user.h */,
 				687CDC6E1C68F16B0094F581 /* user.m */,
+				68811FBB1C6EF06C001048FF /* notificationList.h */,
+				68811FBC1C6EF06C001048FF /* notificationList.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 				686CD8201C6DCA4300D436A6 /* affairsViewController.m in Sources */,
 				687CDC881C68FD5F0094F581 /* myselfViewController.m in Sources */,
 				686CD81C1C6DC9A700D436A6 /* filesViewController.m in Sources */,
+				68811FBD1C6EF06C001048FF /* notificationList.m in Sources */,
 				687CDC781C68FB0A0094F581 /* mainTabBarController.m in Sources */,
 				687CDC8C1C6901AC0094F581 /* changePasswordViewController.m in Sources */,
 				687CDC6F1C68F16B0094F581 /* user.m in Sources */,

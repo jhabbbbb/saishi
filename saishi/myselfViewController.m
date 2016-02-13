@@ -52,7 +52,7 @@
 
 - (IBAction)logout:(UIButton *)sender {
     self.logoutPermit = NO;
-    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"" message:@"确定要注销吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"确定要注销吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     [alert show];
 }
 

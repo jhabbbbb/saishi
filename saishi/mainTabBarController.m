@@ -17,6 +17,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+    //NSDictionary *parameter = @{@"type": @"Tongzhi"};
+    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/data?type=Tongzhi" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"success");
+        NSDictionary *dict = (NSDictionary *)responseObject;
+        NSLog(@"%@", dict);
+    }
+    failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

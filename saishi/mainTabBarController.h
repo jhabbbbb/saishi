@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "user.h"
-
+#import "AFNetworking.h"
 @interface mainTabBarController : UITabBarController
 
 @property (strong, nonatomic) user *me;

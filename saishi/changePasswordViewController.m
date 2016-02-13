@@ -25,10 +25,7 @@
 }
 
 - (IBAction)changePassword:(UIButton *)sender {
-    if ([self.me checkPassword:self.oldPassword.text]){
-        [self.me changePassword:self.password.text];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+
 }
 
 
