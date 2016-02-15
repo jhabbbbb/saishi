@@ -15,6 +15,10 @@
 		6841FA9C1C631BC8004BACEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6841FA9A1C631BC8004BACEA /* LaunchScreen.storyboard */; };
 		6841FAA71C631BC8004BACEA /* saishiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6841FAA61C631BC8004BACEA /* saishiTests.m */; };
 		6841FAB21C631BC8004BACEA /* saishiUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6841FAB11C631BC8004BACEA /* saishiUITests.m */; };
+		686B24B61C71CBF700F48DDB /* customCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B24B51C71CBF700F48DDB /* customCell.m */; };
+		686B24B91C71DCDF00F48DDB /* imageGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B24B81C71DCDF00F48DDB /* imageGetter.m */; };
+		686B24BC1C71E41F00F48DDB /* detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B24BB1C71E41F00F48DDB /* detailViewController.m */; };
+		686B24C01C71FCD800F48DDB /* fileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B24BF1C71FCD800F48DDB /* fileCell.m */; };
 		686CD8131C6DC82700D436A6 /* notificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD8121C6DC82700D436A6 /* notificationViewController.m */; };
 		686CD8161C6DC97A00D436A6 /* feedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD8151C6DC97A00D436A6 /* feedViewController.m */; };
 		686CD8191C6DC99000D436A6 /* scheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD8181C6DC99000D436A6 /* scheduleViewController.m */; };
@@ -25,6 +29,7 @@
 		687CDC781C68FB0A0094F581 /* mainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC771C68FB0A0094F581 /* mainTabBarController.m */; };
 		687CDC881C68FD5F0094F581 /* myselfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC871C68FD5F0094F581 /* myselfViewController.m */; };
 		687CDC8C1C6901AC0094F581 /* changePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC8B1C6901AC0094F581 /* changePasswordViewController.m */; };
+		68811FBD1C6EF06C001048FF /* dataList.m in Sources */ = {isa = PBXBuildFile; fileRef = 68811FBC1C6EF06C001048FF /* dataList.m */; };
 		D1CAE73175563635834B6B18 /* libPods-saishi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2464FC2240297C48BF45B6 /* libPods-saishi.a */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +69,14 @@
 		6841FAAD1C631BC8004BACEA /* saishiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = saishiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6841FAB11C631BC8004BACEA /* saishiUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = saishiUITests.m; sourceTree = "<group>"; };
 		6841FAB31C631BC8004BACEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		686B24B41C71CBF700F48DDB /* customCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = customCell.h; sourceTree = "<group>"; };
+		686B24B51C71CBF700F48DDB /* customCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = customCell.m; sourceTree = "<group>"; };
+		686B24B71C71DCDF00F48DDB /* imageGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imageGetter.h; sourceTree = "<group>"; };
+		686B24B81C71DCDF00F48DDB /* imageGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = imageGetter.m; sourceTree = "<group>"; };
+		686B24BA1C71E41F00F48DDB /* detailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailViewController.h; sourceTree = "<group>"; };
+		686B24BB1C71E41F00F48DDB /* detailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailViewController.m; sourceTree = "<group>"; };
+		686B24BE1C71FCD800F48DDB /* fileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fileCell.h; sourceTree = "<group>"; };
+		686B24BF1C71FCD800F48DDB /* fileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = fileCell.m; sourceTree = "<group>"; };
 		686CD8111C6DC82700D436A6 /* notificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = notificationViewController.h; sourceTree = "<group>"; };
 		686CD8121C6DC82700D436A6 /* notificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = notificationViewController.m; sourceTree = "<group>"; };
 		686CD8141C6DC97A00D436A6 /* feedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedViewController.h; sourceTree = "<group>"; };
@@ -83,6 +96,8 @@
 		687CDC871C68FD5F0094F581 /* myselfViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myselfViewController.m; sourceTree = "<group>"; };
 		687CDC8A1C6901AC0094F581 /* changePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = changePasswordViewController.h; sourceTree = "<group>"; };
 		687CDC8B1C6901AC0094F581 /* changePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = changePasswordViewController.m; sourceTree = "<group>"; };
+		68811FBB1C6EF06C001048FF /* dataList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dataList.h; sourceTree = "<group>"; };
+		68811FBC1C6EF06C001048FF /* dataList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dataList.m; sourceTree = "<group>"; };
 		BA2464FC2240297C48BF45B6 /* libPods-saishi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-saishi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E95565101C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E95565111C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -201,6 +216,14 @@
 			children = (
 				687CDC6D1C68F16B0094F581 /* user.h */,
 				687CDC6E1C68F16B0094F581 /* user.m */,
+				68811FBB1C6EF06C001048FF /* dataList.h */,
+				68811FBC1C6EF06C001048FF /* dataList.m */,
+				686B24B41C71CBF700F48DDB /* customCell.h */,
+				686B24B51C71CBF700F48DDB /* customCell.m */,
+				686B24B71C71DCDF00F48DDB /* imageGetter.h */,
+				686B24B81C71DCDF00F48DDB /* imageGetter.m */,
+				686B24BE1C71FCD800F48DDB /* fileCell.h */,
+				686B24BF1C71FCD800F48DDB /* fileCell.m */,
 			);
 			name = Modal;
 			sourceTree = "<group>";
@@ -221,9 +244,9 @@
 				687CDC751C68FAD40094F581 /* mainTabBarController */,
 				687CDC711C68F91C0094F581 /* notificationViewController */,
 				687CDC791C68FC2B0094F581 /* feedViewController */,
-				687CDC7D1C68FCD00094F581 /* scheduleViewController */,
 				686CD81D1C6DCA2C00D436A6 /* affairsViewController */,
 				687CDC811C68FD270094F581 /* filesViewController */,
+				687CDC7D1C68FCD00094F581 /* scheduleViewController */,
 				687CDC851C68FD490094F581 /* myselfViewController */,
 				687CDC891C69018C0094F581 /* changePasswordViewController */,
 			);
@@ -322,6 +345,8 @@
 		68AF081D1C6D88E900940B4C /* detailViewController */ = {
 			isa = PBXGroup;
 			children = (
+				686B24BA1C71E41F00F48DDB /* detailViewController.h */,
+				686B24BB1C71E41F00F48DDB /* detailViewController.m */,
 			);
 			name = detailViewController;
 			sourceTree = "<group>";
@@ -519,15 +544,20 @@
 				686CD8161C6DC97A00D436A6 /* feedViewController.m in Sources */,
 				686CD8201C6DCA4300D436A6 /* affairsViewController.m in Sources */,
 				687CDC881C68FD5F0094F581 /* myselfViewController.m in Sources */,
+				686B24BC1C71E41F00F48DDB /* detailViewController.m in Sources */,
 				686CD81C1C6DC9A700D436A6 /* filesViewController.m in Sources */,
+				68811FBD1C6EF06C001048FF /* dataList.m in Sources */,
 				687CDC781C68FB0A0094F581 /* mainTabBarController.m in Sources */,
 				687CDC8C1C6901AC0094F581 /* changePasswordViewController.m in Sources */,
 				687CDC6F1C68F16B0094F581 /* user.m in Sources */,
+				686B24B91C71DCDF00F48DDB /* imageGetter.m in Sources */,
 				686CD8191C6DC99000D436A6 /* scheduleViewController.m in Sources */,
 				6841FA941C631BC8004BACEA /* loginViewController.m in Sources */,
 				686CD8131C6DC82700D436A6 /* notificationViewController.m in Sources */,
 				6841FA911C631BC8004BACEA /* AppDelegate.m in Sources */,
+				686B24B61C71CBF700F48DDB /* customCell.m in Sources */,
 				6841FA8E1C631BC8004BACEA /* main.m in Sources */,
+				686B24C01C71FCD800F48DDB /* fileCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,22 +1,25 @@
 //
-//  mainTabBarController.m
+//  detailViewController.m
 //  saishi
 //
-//  Created by JinHongxu on 16/2/9.
+//  Created by JinHongxu on 16/2/15.
 //  Copyright © 2016年 JinHongxu. All rights reserved.
 //
 
-#import "mainTabBarController.h"
+#import "detailViewController.h"
 
-@interface mainTabBarController ()
+@interface detailViewController ()
 
 @end
 
-@implementation mainTabBarController
-
+@implementation detailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    self.timeLabel.text = self.time;
+    self.textView.text = self.text;
 }
 
 - (void)didReceiveMemoryWarning {
