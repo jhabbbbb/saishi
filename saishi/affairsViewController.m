@@ -1,18 +1,18 @@
 //
-//  scheduleViewController.m
+//  affairsViewController.m
 //  saishi
 //
 //  Created by JinHongxu on 16/2/12.
 //  Copyright © 2016年 JinHongxu. All rights reserved.
 //
 
-#import "scheduleViewController.h"
+#import "affairsViewController.h"
 
-@interface scheduleViewController ()
+@interface affairsViewController ()
 
 @end
 
-@implementation scheduleViewController
+@implementation affairsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

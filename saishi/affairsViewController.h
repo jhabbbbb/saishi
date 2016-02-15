@@ -1,5 +1,5 @@
 //
-//  filesViewController.h
+//  affairsViewController.h
 //  saishi
 //
 //  Created by JinHongxu on 16/2/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface filesViewController : UITableViewController
+@interface affairsViewController : UITableViewController
 
 @end

@@ -1,18 +1,18 @@
 //
-//  scheduleViewController.m
+//  feedViewController.m
 //  saishi
 //
 //  Created by JinHongxu on 16/2/12.
 //  Copyright © 2016年 JinHongxu. All rights reserved.
 //
 
-#import "scheduleViewController.h"
+#import "feedViewController.h"
 
-@interface scheduleViewController ()
+@interface feedViewController ()
 
 @end
 
-@implementation scheduleViewController
+@implementation feedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

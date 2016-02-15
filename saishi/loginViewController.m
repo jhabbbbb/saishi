@@ -27,6 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+
+
+    self.username.delegate = self;
+    self.password.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,7 +48,7 @@
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
     if ([identifier isEqualToString:@"login"]){
-        return [self.me checkPassword: self.password.text];
+        return [self.me checkPassword:self.password.text];
     }
     return NO;
 }
@@ -57,5 +62,27 @@
         }
     }
 }
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.view.frame;
+        frame.origin.y = -80.0;
+        self.view.frame = frame;
+    }];
+    return YES;
+}//键盘出现界面上升
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)thetextField {
+    
+    if (thetextField == self.password){
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect frame = self.view.frame;
+            frame.origin.y = 0.0;
+            self.view.frame = frame;
+        }];
+    }
+    return YES;
+}//键盘消失界面下降
 
 @end

@@ -1,5 +1,5 @@
 //
-//  filesViewController.h
+//  feedViewController.h
 //  saishi
 //
 //  Created by JinHongxu on 16/2/12.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface filesViewController : UITableViewController
+@interface feedViewController : UITableViewController
 
 @end

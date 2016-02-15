@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "filesIcon.png",
+      "filename" : "navigationBarBackground.png",
       "scale" : "1x"
     },
     {
