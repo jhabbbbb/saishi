@@ -11,11 +11,11 @@
 @interface user : NSObject
 
 @property (strong, nonatomic) NSString *username;
-@property (strong, nonatomic) NSString *portrait;
-@property (strong, nonatomic) NSString *realName;
+@property (strong, nonatomic) NSString *portraitID;
+@property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *danwei;
+@property (strong, nonatomic) NSString *zhiwu;
 
-- (void)changePassword:(NSString *)password;
-
-- (void)changePortrait:(NSString *)newPortrait;
+- (void)getUserInfo:(void(^)(NSString *name, NSString *danwei, NSString *zhiwu, NSString *portraitID))completion;//获得用户的姓名，单位职务，头像ID
 
 @end

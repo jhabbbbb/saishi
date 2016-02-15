@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "user.h"
+#import "AFNetworking.h"
+
 @interface changePasswordViewController : UIViewController
 
 @property (strong, nonatomic) user *me;

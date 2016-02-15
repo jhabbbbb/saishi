@@ -28,7 +28,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    
     self.username.delegate = self;
     self.password.delegate = self;
 }
@@ -38,6 +37,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+//登录
 - (IBAction)login:(UIButton *)sender {
     
     self.me.username = self.username.text;
@@ -66,24 +67,6 @@
 
 }
 
-/*- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if ([identifier isEqualToString:@"login"]){
-        return [self.me checkPassword:self.password.text];
-    }
-    return NO;
-}*/
-
-/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"login"]){
-        if ([segue.destinationViewController isKindOfClass:[mainTabBarController class]]){
-            mainTabBarController *TabBarVC = (mainTabBarController *)segue.destinationViewController;
-            TabBarVC.me = self.me;
-        }
-    }
-}*/
-
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -105,5 +88,24 @@
     }
     return YES;
 }//键盘消失界面下降
+
+
+/*- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    if ([identifier isEqualToString:@"login"]){
+        return [self.me checkPassword:self.password.text];
+    }
+    return NO;
+}*/
+
+/*- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"login"]){
+        if ([segue.destinationViewController isKindOfClass:[mainTabBarController class]]){
+            mainTabBarController *TabBarVC = (mainTabBarController *)segue.destinationViewController;
+            TabBarVC.me = self.me;
+        }
+    }
+}*/
 
 @end

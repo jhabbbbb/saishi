@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "user.h"
+#import "AFNetworking.h"
+#import "imageGetter.h"
 @interface myselfViewController : UIViewController<UIAlertViewDelegate>
 
 @property (strong, nonatomic) user *me;
