@@ -1,5 +1,5 @@
 //
-//  changePasswordViewController.h
+//  launchViewController.h
 //  saishi
 //
 //  Created by JinHongxu on 16/2/16.
@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
 #import "user.h"
-@interface changePasswordViewController : UITableViewController
+@interface launchViewController : UIViewController
 
 @property (strong, nonatomic) user *me;
 

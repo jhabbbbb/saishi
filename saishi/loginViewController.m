@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *username;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (strong, nonatomic) user *me;
+
+
 @end
 
 @implementation loginViewController
@@ -28,8 +30,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.username.delegate = self;
-    self.password.delegate = self;
+    //点击空白键盘消失
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
+    [self.view addGestureRecognizer:singleTap];
+    
+    //监听键盘事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,17 +53,22 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSDictionary *parameters = @{@"phone": self.username.text, @"pwd": self.password.text};
-    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/log_in" parameters:parameters progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    NSDictionary *parameter = @{@"phone": self.username.text, @"pwd": self.password.text};
+    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/log_in" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
     {
         //NSLog(@"success");
         NSDictionary *dict = (NSDictionary *)responseObject;
         //NSLog(@"%@", [dict objectForKey:@"msg"]);
         if ([[dict objectForKey:@"msg"] isEqualToString:@"登陆成功"]){
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:parameter forKey:@"loginInfo"];
+            [userDefaults synchronize];
+            
             mainTabBarController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
             vc.me = self.me;
-            [self presentViewController:vc animated:YES completion:^{
-            }];
+            
+            [self presentViewController:vc animated:YES completion:nil];
         }
         else {
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[dict objectForKey:@"msg"] delegate:self cancelButtonTitle:@"确定"otherButtonTitles: nil];
@@ -67,27 +80,31 @@
 
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+//点击空白键盘消失
+-(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer
+{
+    [self.view endEditing:YES];
+}
+
+//界面上升
+- (void)keyboardWillShow:(NSNotification *)notif {
     
     [UIView animateWithDuration:0.3 animations:^{
         CGRect frame = self.view.frame;
         frame.origin.y = -80.0;
         self.view.frame = frame;
     }];
-    return YES;
-}//键盘出现界面上升
+}
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)thetextField {
+//界面下降
+- (void)keyboardWillHide:(NSNotification *)notif {
     
-    if (thetextField == self.password){
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect frame = self.view.frame;
-            frame.origin.y = 0.0;
-            self.view.frame = frame;
-        }];
-    }
-    return YES;
-}//键盘消失界面下降
+    [UIView animateWithDuration:0.3 animations:^{
+        CGRect frame = self.view.frame;
+        frame.origin.y = 0.0;
+        self.view.frame = frame;
+    }];
+}
 
 
 /*- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender

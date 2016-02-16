@@ -8,7 +8,9 @@
 
 #import "feedViewController.h"
 
-@interface feedViewController ()
+@interface feedViewController (){
+    int yeshu;
+}
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (nonatomic) BOOL loadedData;//是否加载数据
 @end
@@ -31,16 +33,79 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    
+    //修复刷新坐标起点问题
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]){
+        self.automaticallyAdjustsScrollViewInsets=NO;
+        UIEdgeInsets insets= self.table.contentInset;
+        insets.top= self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+        self.table.contentInset = insets;
+        self.table.scrollIndicatorInsets = insets;
+    }
+    
+    //添加下拉刷新、分页加载控件
+    __weak feedViewController *weakSelf = self;
+    [self.table addPullToRefreshWithActionHandler:^{
+        [weakSelf refreshTable];
+    }];
+    
+    [self.table addInfiniteScrollingWithActionHandler:^{
+        [weakSelf loadTable];
+    }];
+    
+    self.navigationItem.title = @"动态";
+    
     self.loadedData = NO;
     
     //获取动态列表
-    [self.list getDataWithType:@"Dongtai" complete:^(){
+    yeshu = 2;
+    [self.list getDataWithType:@"Dongtai" yeshu:yeshu complete:^(){
         //NSLog(@"%@", self.list.feedList);
         self.loadedData = YES;
         [self.table reloadData];
     }];
 
 }
+
+- (void)refreshTable
+{
+    //延时
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    
+    //刷新
+    yeshu = 1;
+    self.loadedData = NO;
+    [self.list.feedList removeAllObjects];
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.list getDataWithType:@"Dongtai" yeshu:yeshu complete:^(){
+            self.loadedData = YES;
+            [self.table reloadData];
+            [self.table.pullToRefreshView stopAnimating];
+        }];
+    });
+    
+}
+
+- (void)loadTable{
+    
+    //延时
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    
+    //加载
+    yeshu++;
+    //NSLog(@"yeshu:%d", yeshu);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.list getDataWithType:@"Dongtai" yeshu:yeshu complete:^(){
+            self.loadedData = YES;
+            [self.table reloadData];
+            [self.table.infiniteScrollingView stopAnimating];
+        }];
+    });
+    
+}//分页加载
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -87,7 +152,7 @@
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
         [imgGetter getImageWithID:[self.list.feedList[indexPath.row] objectForKey:@"icon"] complete:^(){
-            [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL]];
+            [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL] placeholderImage:[UIImage imageNamed:@"imagePlaceholder"]];
         }];
         
         

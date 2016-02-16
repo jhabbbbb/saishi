@@ -18,8 +18,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [self updateUI];
+    
+
+}
+
+- (void)updateUI
+{
+    //时间
     self.timeLabel.text = self.time;
-    self.textView.text = self.text;
+    
+    //内容html解析
+    NSMutableString *html = [NSMutableString stringWithString: @"<html><head><title></title></head><body style=\"background:transparent;\">"];
+    [html appendString:self.text];
+    [html appendString:@"</body></html>"];
+    [self.content loadHTMLString:[html description] baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning {
