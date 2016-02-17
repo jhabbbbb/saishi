@@ -21,9 +21,10 @@
 		686B24C01C71FCD800F48DDB /* fileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 686B24BF1C71FCD800F48DDB /* fileCell.m */; };
 		686CD8131C6DC82700D436A6 /* notificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD8121C6DC82700D436A6 /* notificationViewController.m */; };
 		686CD8161C6DC97A00D436A6 /* feedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD8151C6DC97A00D436A6 /* feedViewController.m */; };
-		686CD8191C6DC99000D436A6 /* scheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD8181C6DC99000D436A6 /* scheduleViewController.m */; };
 		686CD81C1C6DC9A700D436A6 /* filesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD81B1C6DC9A700D436A6 /* filesViewController.m */; };
 		686CD8201C6DCA4300D436A6 /* affairsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 686CD81F1C6DCA4300D436A6 /* affairsViewController.m */; };
+		6873803C1C74711100AA4B82 /* scheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6873803B1C74711100AA4B82 /* scheduleViewController.m */; };
+		6873803E1C74A8A600AA4B82 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6873803D1C74A8A600AA4B82 /* QuickLook.framework */; };
 		687CDC6C1C68ED460094F581 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 687CDC6B1C68ED460094F581 /* Assets.xcassets */; };
 		687CDC6F1C68F16B0094F581 /* user.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC6E1C68F16B0094F581 /* user.m */; };
 		687CDC781C68FB0A0094F581 /* mainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 687CDC771C68FB0A0094F581 /* mainTabBarController.m */; };
@@ -82,12 +83,13 @@
 		686CD8121C6DC82700D436A6 /* notificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = notificationViewController.m; sourceTree = "<group>"; };
 		686CD8141C6DC97A00D436A6 /* feedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = feedViewController.h; sourceTree = "<group>"; };
 		686CD8151C6DC97A00D436A6 /* feedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = feedViewController.m; sourceTree = "<group>"; };
-		686CD8171C6DC99000D436A6 /* scheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scheduleViewController.h; sourceTree = "<group>"; };
-		686CD8181C6DC99000D436A6 /* scheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = scheduleViewController.m; sourceTree = "<group>"; };
 		686CD81A1C6DC9A700D436A6 /* filesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesViewController.h; sourceTree = "<group>"; };
 		686CD81B1C6DC9A700D436A6 /* filesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = filesViewController.m; sourceTree = "<group>"; };
 		686CD81E1C6DCA4300D436A6 /* affairsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = affairsViewController.h; sourceTree = "<group>"; };
 		686CD81F1C6DCA4300D436A6 /* affairsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = affairsViewController.m; sourceTree = "<group>"; };
+		6873803A1C74711100AA4B82 /* scheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scheduleViewController.h; sourceTree = "<group>"; };
+		6873803B1C74711100AA4B82 /* scheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = scheduleViewController.m; sourceTree = "<group>"; };
+		6873803D1C74A8A600AA4B82 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		687CDC6B1C68ED460094F581 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		687CDC6D1C68F16B0094F581 /* user.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = user.h; sourceTree = "<group>"; };
 		687CDC6E1C68F16B0094F581 /* user.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = user.m; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6873803E1C74A8A600AA4B82 /* QuickLook.framework in Frameworks */,
 				551DC2588C2879950E2C26A8 /* libPods.a in Frameworks */,
 				D1CAE73175563635834B6B18 /* libPods-saishi.a in Frameworks */,
 			);
@@ -313,8 +316,8 @@
 		687CDC7D1C68FCD00094F581 /* scheduleViewController */ = {
 			isa = PBXGroup;
 			children = (
-				686CD8171C6DC99000D436A6 /* scheduleViewController.h */,
-				686CD8181C6DC99000D436A6 /* scheduleViewController.m */,
+				6873803A1C74711100AA4B82 /* scheduleViewController.h */,
+				6873803B1C74711100AA4B82 /* scheduleViewController.m */,
 			);
 			name = scheduleViewController;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 		C859EC088FD0C2A2B40E2CBC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6873803D1C74A8A600AA4B82 /* QuickLook.framework */,
 				4B756ABB349AE6A052C34565 /* libPods.a */,
 				BA2464FC2240297C48BF45B6 /* libPods-saishi.a */,
 			);
@@ -557,13 +561,13 @@
 				686CD8161C6DC97A00D436A6 /* feedViewController.m in Sources */,
 				686CD8201C6DCA4300D436A6 /* affairsViewController.m in Sources */,
 				686B24BC1C71E41F00F48DDB /* detailViewController.m in Sources */,
+				6873803C1C74711100AA4B82 /* scheduleViewController.m in Sources */,
 				686CD81C1C6DC9A700D436A6 /* filesViewController.m in Sources */,
 				68811FBD1C6EF06C001048FF /* dataList.m in Sources */,
 				68AE7F171C72F121007EFB2D /* meViewController.m in Sources */,
 				687CDC781C68FB0A0094F581 /* mainTabBarController.m in Sources */,
 				687CDC6F1C68F16B0094F581 /* user.m in Sources */,
 				686B24B91C71DCDF00F48DDB /* imageGetter.m in Sources */,
-				686CD8191C6DC99000D436A6 /* scheduleViewController.m in Sources */,
 				6841FA941C631BC8004BACEA /* loginViewController.m in Sources */,
 				686CD8131C6DC82700D436A6 /* notificationViewController.m in Sources */,
 				6841FA911C631BC8004BACEA /* AppDelegate.m in Sources */,

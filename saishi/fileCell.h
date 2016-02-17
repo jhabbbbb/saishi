@@ -8,15 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
+
 @interface fileCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *fileTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fileNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
 @property (strong, nonatomic) NSString *fileID;
 @property (strong, nonatomic) NSString *fileURL;
 @property (strong, nonatomic) NSString *filePath;
+@property (strong, nonatomic) NSString *fileName;
 @property (strong, nonatomic) NSString *time;
 
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+
+@property (nonatomic) BOOL fileIsDownloaded;
+
 - (void)getFileURL;
+
+- (void)download;
 
 @end

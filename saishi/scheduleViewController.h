@@ -2,12 +2,12 @@
 //  scheduleViewController.h
 //  saishi
 //
-//  Created by JinHongxu on 16/2/12.
-//  Copyright © 2016年 JinHongxu. All rights reserved.
+//  Created by JinHongxu on 16/2/17.
+//  Copyright © 2016年 cn.twt.edu. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface scheduleViewController : UITableViewController
+@interface scheduleViewController : UIViewController
 
 @end

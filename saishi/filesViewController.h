@@ -11,7 +11,8 @@
 #import "UIKit+AFNetworking.h"
 #import "dataList.h"
 #import "fileCell.h"
-@interface filesViewController : UITableViewController
+#import "QuickLook/QuickLook.h"
+@interface filesViewController : UITableViewController<QLPreviewControllerDataSource, QLPreviewControllerDelegate>
 
 @property (strong, nonatomic) dataList *list;
 
