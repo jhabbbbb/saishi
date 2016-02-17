@@ -54,6 +54,7 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parameter = @{@"phone": self.username.text, @"pwd": self.password.text};
+    
     [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/log_in" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
     {
         //NSLog(@"success");
@@ -61,6 +62,7 @@
         //NSLog(@"%@", [dict objectForKey:@"msg"]);
         if ([[dict objectForKey:@"msg"] isEqualToString:@"登陆成功"]){
             
+            //保存登录状态
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setObject:parameter forKey:@"loginInfo"];
             [userDefaults synchronize];

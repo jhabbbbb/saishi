@@ -56,7 +56,7 @@
     [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
         self.loadedData = YES;
         [self.table reloadData];
-    }];
+    }fail:nil];
     
     //添加下拉刷新、分页加载控件
     __weak notificationViewController *weakSelf = self;
@@ -86,6 +86,10 @@
             self.loadedData = YES;
             [self.table reloadData];
             [self.table.pullToRefreshView stopAnimating];
+        }fail:^(){
+            [self.table.infiniteScrollingView stopAnimating];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"失败了，重试一下吧～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
         }];
     });
 
@@ -105,6 +109,10 @@
             self.loadedData = YES;
             [self.table reloadData];
             [self.table.infiniteScrollingView stopAnimating];
+        } fail:^(){
+            [self.table.infiniteScrollingView stopAnimating];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"没有了～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
         }];
     });
     
@@ -161,9 +169,11 @@
             [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL] placeholderImage:[UIImage imageNamed:@"imagePlaceholder"]];
         }];
         
-        
         //处理时间
         cell.timeLabel.text = @"00:00";
+        if (indexPath.section == 0){
+            cell.timeLabel.text = @"00-00 00:00";
+        }
         cell.time = [self.list.notificationList[indexPath.row] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -171,6 +181,9 @@
         if (date){
             //NSLog(@"%@", date);
             [dateFormatter setDateFormat:@"HH:mm"];
+            if (indexPath.section == 0){
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+            }
             NSString *time = [dateFormatter stringFromDate:date];
             cell.timeLabel.text = time;
         }
@@ -189,6 +202,33 @@
     }
 }
 
+//第二区域的hearderView
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+ 
+    UIView *headerView;
+    if (section == 1){
+        headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 30)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, -5, 100, 15)];
+        label.textColor = [UIColor grayColor];
+        label.backgroundColor = [UIColor clearColor];
+        
+        label.text = @"0000-00-00";
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *date = [dateFormatter dateFromString:[[self.list.notificationList objectAtIndex:1] objectForKey:@"createtime"]];
+        if (date){
+            [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+            NSString *time = [dateFormatter stringFromDate:date];
+            label.text = time;
+        }
+        
+        [headerView addSubview:label];
+    }
+ 
+    return headerView;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

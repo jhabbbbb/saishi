@@ -35,9 +35,27 @@
     return _fileList;
 }
 
+//把请求到的数据排序加入到list中，解决置顶问题
+- (void)addObjectstolist:(NSMutableArray *)list withArray:(NSArray *)dict
+{
+    for (NSDictionary *dic in dict){
+        //若要插入一条新的置顶消息
+        if ([[dic objectForKey:@"isup"] isEqualToString:@"1"]){
+            //查看原来有没有置顶消息，有就将它移除，根据api，它不会从列表中消失
+            if ([list count]&&[[[list firstObject] objectForKey:@"isup"] isEqualToString:@"1"]){
+                [list removeObjectAtIndex:0];
+            }
+            //把新的置顶消息插入到第0位
+            [list insertObject:dic atIndex:0];
+        }
+        else {
+            [list addObject:dic];
+        }
+    }
+}
 
 //根据type("Tongzhi", "Dongtai", "Huiwu")和yeshu获取列表，在completion中更新UI
-- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void (^)())completion
+- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void (^)())completion fail:(void (^)())fail
 {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -48,25 +66,21 @@
         NSArray *dict = (NSArray *)responseObject;
         //NSLog(@"%@",dict);
         if ([type isEqualToString:@"Tongzhi"]){
-            for (NSDictionary *dic in dict){
-                [self.notificationList addObject:dic];
-            }
+            [self addObjectstolist:self.notificationList withArray:dict];
+    
         }
         else if ([type isEqualToString:@"Dongtai"]){
-            for (NSDictionary *dic in dict){
-                [self.feedList addObject:dic];
-            }
+            [self addObjectstolist:self.feedList withArray:dict];
         }
         else if ([type isEqualToString:@"Huiwu"]){
-            for (NSDictionary *dic in dict){
-                [self.affairsList addObject:dic];
-            }
+            [self addObjectstolist:self.affairsList withArray:dict];
         }
         
         completion();
     }
     failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
+        fail();
     }];
 }
 

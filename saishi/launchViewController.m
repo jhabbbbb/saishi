@@ -31,8 +31,11 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *parameter = [userDefaults objectForKey:@"loginInfo"];
     if (parameter) {
+        
+        //自动登录
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        
         [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/log_in" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
          {
              //NSLog(@"success");
@@ -40,6 +43,7 @@
              //NSLog(@"%@", [dict objectForKey:@"msg"]);
              if ([[dict objectForKey:@"msg"] isEqualToString:@"登陆成功"]){
                  
+                 //保存登录状态
                  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                  [userDefaults setObject:parameter forKey:@"loginInfo"];
                  [userDefaults synchronize];
@@ -48,7 +52,6 @@
                  
                  mainTabBarController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"tabBarController"];
                  vc.me = self.me;
-                 
                  [self presentViewController:vc animated:YES completion:nil];
              }
              else {

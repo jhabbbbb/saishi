@@ -96,6 +96,7 @@
              NSLog(@"%@", [dict objectForKey:@"msg"]);
              if ([[dict objectForKey:@"msg"] isEqualToString:@"登出成功"]){
                  
+                 //删除用户登录状态
                  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
                  [userDefaults removeObjectForKey:@"loginInfo"];
                  [userDefaults synchronize];
