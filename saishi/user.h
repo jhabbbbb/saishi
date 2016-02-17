@@ -16,6 +16,6 @@
 @property (strong, nonatomic) NSString *danwei;
 @property (strong, nonatomic) NSString *zhiwu;
 
-- (void)getUserInfo:(void(^)(NSString *name, NSString *danwei, NSString *zhiwu, NSString *portraitID))completion;//获得用户的姓名，单位职务，头像ID
+- (void)getUserInfo;//获得用户的姓名，单位职务，头像ID
 
 @end

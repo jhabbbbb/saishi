@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "user.h"
-#import "myselfViewController.h"
+
 @interface mainTabBarController : UITabBarController
 
 @property (strong, nonatomic) user *me;

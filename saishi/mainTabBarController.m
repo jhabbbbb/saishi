@@ -14,9 +14,15 @@
 
 @implementation mainTabBarController
 
+- (user *)me
+{
+    if (!_me) _me = [[user alloc] init];
+    return _me;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.me getUserInfo];
 }
 
 - (void)didReceiveMemoryWarning {

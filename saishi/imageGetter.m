@@ -22,7 +22,7 @@
          //NSLog(@"get image success.");
          NSDictionary *dict = (NSDictionary *)responseObject;
          //NSLog(@"%@", dict);
-         self.imageURL = [dict objectForKey:@"url"];
+         self.imageURL = [[NSString alloc] initWithFormat:@"http://121.42.157.180/qgfdyjnds/%@", [dict objectForKey:@"url"]];
          
          completion();
          

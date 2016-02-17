@@ -30,7 +30,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
+    self.navigationItem.title = @"文件";
     self.loadedData = NO;
     
     //获取文件列表

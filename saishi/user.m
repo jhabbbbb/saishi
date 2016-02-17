@@ -32,9 +32,14 @@
     return _name;
 }
 
+- (NSString *)username
+{
+    if (!_username) _username = @"";
+    return _username;
+}
 
-//获取用户全部信息，在completion中更新UI
-- (void)getUserInfo:(void(^)(NSString *name, NSString *danwei, NSString *zhiwu, NSString *portraitID))completion
+//获取用户全部信息
+- (void)getUserInfo
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -47,8 +52,6 @@
          self.danwei = [dict objectForKey:@"danwei"];
          self.zhiwu = [dict objectForKey:@"zhifu"];
          self.portraitID = [dict objectForKey:@"icon"];
-         
-         completion(self.name, self.danwei, self.zhiwu, self.portraitID);
          
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
          NSLog(@"Error: %@", error);

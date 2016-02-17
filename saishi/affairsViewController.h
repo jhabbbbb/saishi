@@ -13,6 +13,7 @@
 #import "customCell.h"
 #import "imageGetter.h"
 #import "detailViewController.h"
+#import "SVPullToRefresh.h"
 @interface affairsViewController : UITableViewController
 
 @property (strong, nonatomic) dataList *list;

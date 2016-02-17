@@ -11,12 +11,12 @@
 
 @interface dataList : NSObject
 
-@property (strong, nonatomic) NSArray *notificationList;
-@property (strong, nonatomic) NSArray *affairsList;
-@property (strong, nonatomic) NSArray *feedList;
-@property (strong, nonatomic) NSArray *fileList;
+@property (strong, nonatomic) NSMutableArray *notificationList;
+@property (strong, nonatomic) NSMutableArray *affairsList;
+@property (strong, nonatomic) NSMutableArray *feedList;
+@property (strong, nonatomic) NSMutableArray *fileList;
 
-- (void)getDataWithType:(NSString *)type complete:(void(^)())completion;
+- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void(^)())completion;
 
 - (void)getFileList:(void(^)())completion;
 

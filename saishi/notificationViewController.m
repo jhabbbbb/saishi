@@ -8,9 +8,13 @@
 
 #import "notificationViewController.h"
 
-@interface notificationViewController ()
+
+@interface notificationViewController (){
+    int yeshu;//页数
+}
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (nonatomic) BOOL loadedData;//是否加载数据
+
 @end
 
 @implementation notificationViewController
@@ -30,16 +34,82 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    //[self.navigationController setNavigationBarHidden:YES animated:YES];
+    
+    //修复刷新坐标起点问题
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]){
+        self.automaticallyAdjustsScrollViewInsets=NO;
+        UIEdgeInsets insets= self.table.contentInset;
+        insets.top= self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+        self.table.contentInset = insets;
+        self.table.scrollIndicatorInsets = insets;
+    }
+    
+    //设置标题
+    self.navigationItem.title = @"通知";
+    
+    //未加载数据
     self.loadedData = NO;
     
     //获取通知列表
-    [self.list getDataWithType:@"Tongzhi" complete:^(){
-        //NSLog(@"%@", self.list.notificationList);
+    yeshu = 1;
+    [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
         self.loadedData = YES;
         [self.table reloadData];
     }];
+    
+    //添加下拉刷新、分页加载控件
+    __weak notificationViewController *weakSelf = self;
+    [self.table addPullToRefreshWithActionHandler:^{
+        [weakSelf refreshTable];
+    }];
+    
+    [self.table addInfiniteScrollingWithActionHandler:^{
+        [weakSelf loadTable];
+    }];
 
 }
+
+//下拉刷新
+- (void)refreshTable
+{
+    //延时
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    
+    //刷新
+    yeshu = 1;
+    self.loadedData = NO;
+    [self.list.notificationList removeAllObjects];
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
+            self.loadedData = YES;
+            [self.table reloadData];
+            [self.table.pullToRefreshView stopAnimating];
+        }];
+    });
+
+}
+
+- (void)loadTable{
+    
+    //延时
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    
+    //加载
+    yeshu++;
+    //NSLog(@"yeshu:%d", yeshu);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
+            self.loadedData = YES;
+            [self.table reloadData];
+            [self.table.infiniteScrollingView stopAnimating];
+        }];
+    });
+    
+}//分页加载
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -87,7 +157,8 @@
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
         [imgGetter getImageWithID:[self.list.notificationList[indexPath.row] objectForKey:@"icon"] complete:^(){
-            [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL]];
+            //NSLog(@"%@", imgGetter.imageURL);
+            [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL] placeholderImage:[UIImage imageNamed:@"imagePlaceholder"]];
         }];
         
         
@@ -164,6 +235,7 @@
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
             detailVC.text = sender.subtitleLabel.text;
+            detailVC.navigationItem.title = sender.titleLabel.text;
         }
     }
 }

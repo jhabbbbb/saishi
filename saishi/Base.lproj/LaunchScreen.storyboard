@@ -19,11 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第五届" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8Q-TJ-7D3">
-                                <rect key="frame" x="20" y="81" width="102" height="46"/>
+                                <rect key="frame" x="20" y="81" width="96" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="VVX-ot-fHU"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -33,7 +33,7 @@
                                     <constraint firstAttribute="height" constant="38" id="Rat-Tx-hdn"/>
                                     <constraint firstAttribute="width" constant="324" id="YNT-VS-JN5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -64,20 +64,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主办：教育部思想工作室" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZe-Ew-kdm">
-                                <rect key="frame" x="20" y="405" width="187" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="408" width="176" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="承办：全国高校辅导员工作研究会" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duC-kT-f95">
-                                <rect key="frame" x="20" y="434" width="255" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="赛区承办：天津市委高校工委 天津大学" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-i9-6lT">
-                                <rect key="frame" x="20" y="463" width="294" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="20" y="436" width="240" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -85,6 +79,12 @@
                                 <rect key="frame" x="20" y="530" width="102" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.49803921568627452" green="0.74509803921568629" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="赛区承办：天津市委高校工委 天津大学" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-i9-6lT">
+                                <rect key="frame" x="20" y="464" width="277" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -95,10 +95,10 @@
                             <constraint firstItem="Dq5-RD-L49" firstAttribute="top" secondItem="0Xf-lQ-Rf3" secondAttribute="bottom" constant="19" id="5G3-0p-riz"/>
                             <constraint firstItem="Dq5-RD-L49" firstAttribute="leading" secondItem="qZe-Ew-kdm" secondAttribute="leading" id="69p-zC-EN0"/>
                             <constraint firstItem="z8Q-TJ-7D3" firstAttribute="leading" secondItem="0Xf-lQ-Rf3" secondAttribute="leading" id="77c-WM-yeK"/>
-                            <constraint firstItem="z8Q-TJ-7D3" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="61" id="8c4-Be-mZ3"/>
                             <constraint firstItem="qZe-Ew-kdm" firstAttribute="leading" secondItem="duC-kT-f95" secondAttribute="leading" id="8ou-6R-2Eh"/>
                             <constraint firstItem="Ld4-i9-6lT" firstAttribute="top" secondItem="duC-kT-f95" secondAttribute="bottom" constant="8" symbolic="YES" id="FvV-cG-TME"/>
                             <constraint firstItem="AcT-rj-2W2" firstAttribute="top" secondItem="lWx-36-Gdu" secondAttribute="bottom" constant="8" symbolic="YES" id="PZ6-MP-5SW"/>
+                            <constraint firstItem="z8Q-TJ-7D3" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="61" id="RVF-C7-GwQ"/>
                             <constraint firstItem="lWx-36-Gdu" firstAttribute="leading" secondItem="gz8-19-CKk" secondAttribute="trailing" constant="8" symbolic="YES" id="Rbc-WP-fTI"/>
                             <constraint firstItem="gz8-19-CKk" firstAttribute="leading" secondItem="Ld4-i9-6lT" secondAttribute="leading" id="RzJ-e7-0w2"/>
                             <constraint firstItem="gz8-19-CKk" firstAttribute="leading" secondItem="AcT-rj-2W2" secondAttribute="leading" id="ab0-zj-YTv"/>
