@@ -43,6 +43,9 @@
         self.table.scrollIndicatorInsets = insets;
     }
     
+    //修复navigationBar高度问题
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    
     //添加下拉刷新、分页加载控件
     __weak affairsViewController *weakSelf = self;
     [self.table addPullToRefreshWithActionHandler:^{
@@ -113,6 +116,26 @@
     
 }//分页加载
 
+//修复navigationBar高度问题
+- (void)statusBarOrientationChange:(NSNotification *)notification
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (orientation == UIInterfaceOrientationLandscapeRight || orientation ==UIInterfaceOrientationLandscapeLeft){ // home键靠左右
+        if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && self.navigationController.navigationBar.translucent == YES) {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            
+            UIEdgeInsets insets = self.tableView.contentInset;
+            
+            insets.top = self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+            insets.top -= 25;
+            self.tableView.contentInset = insets;
+            self.tableView.scrollIndicatorInsets = insets;
+        }
+    }
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -121,7 +144,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning need fix by createTime
+#warning need fix by createTime 用创建日期分区
     
     if (self.loadedData){
         return 2;

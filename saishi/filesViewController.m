@@ -10,6 +10,9 @@
 
 @interface filesViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *table;
+@property (strong, nonatomic) NSString *filePathToOpen;
+
+
 @property (nonatomic) BOOL loadedData;//数据是否加载
 @end
 
@@ -82,11 +85,55 @@
     
     // Configure the cell...
     if (self.loadedData){
+        
         cell.fileTypeLabel.text = @"文件";
         cell.fileNameLabel.text = [[NSString alloc]initWithFormat:@"《%@》", [self.list.fileList[indexPath.row] objectForKey:@"title"]];
         cell.fileID = [self.list.fileList[indexPath.row] objectForKey:@"file"];
-        [cell getFileURL];
         
+        //取已fileName保存的“是否下载”
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *fileName= [userDefaults objectForKey:[cell.fileID stringByAppendingString:@"fileName"]];
+        
+        //NSLog(@"%@", fileName);
+        if (fileName){//如果有过记录，看它还在不在Documents里面
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            //指向文件目录
+            NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+            //NSLog(@"%@", filePath);
+            if(![fileManager fileExistsAtPath:filePath]){ //如果不存在
+                
+                
+                [cell.downloadButton setBackgroundImage:[UIImage imageNamed:@"11"]  forState:UIControlStateNormal];
+                [cell.downloadButton setEnabled:YES];
+                
+                //表示文件没有下载
+                cell.fileIsDownloaded = NO;
+                [cell getFileURL];
+                
+            }
+            else { //如果存在
+                
+                //设置按钮状态
+                [cell.downloadButton setBackgroundImage:[UIImage imageNamed:@"10"]  forState:UIControlStateNormal];
+                [cell.downloadButton setEnabled:NO];
+                
+                //为预览文件准备filePath
+                cell.filePath = [NSString stringWithFormat:@"file://%@", filePath];
+                
+                //表示文件已下载
+                cell.fileIsDownloaded = YES;
+            }
+        }
+
+        else {//如果没有记录
+            [cell.downloadButton setBackgroundImage:[UIImage imageNamed:@"11"]  forState:UIControlStateNormal];
+            [cell.downloadButton setEnabled:YES];
+            cell.fileIsDownloaded = NO;
+            [cell getFileURL];
+        }
+        
+        [cell getFileURL];
         
         //处理时间
         cell.timeLabel.text = @"00:00";
@@ -119,8 +166,36 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     fileCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    //open file with cell.filePath
+    self.filePathToOpen = cell.filePath;
+    NSLog(@"%@", self.filePathToOpen);
+    if (!cell.fileIsDownloaded){//如果没有下载
+        [cell download];
+    }
+    else {
+        
+        //quickLook
+        QLPreviewController *myQlPreViewController = [[QLPreviewController alloc]init];
+        myQlPreViewController.delegate = self;
+        myQlPreViewController.dataSource = self;
+        [myQlPreViewController setCurrentPreviewItemIndex:0];
+        
+        //[self.navigationController showViewController:myQlPreViewController sender:nil];
+        [self showViewController:myQlPreViewController sender:nil];
+    }
     
+}
+
+
+//quickLookDatasource
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller
+{
+    return 1;
+}
+
+- (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index
+{
+    //普通url前记得加file://
+    return [NSURL URLWithString:self.filePathToOpen];
 }
 
 /*

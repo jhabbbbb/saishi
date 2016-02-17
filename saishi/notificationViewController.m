@@ -37,13 +37,17 @@
     //[self.navigationController setNavigationBarHidden:YES animated:YES];
     
     //修复刷新坐标起点问题
-    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]){
-        self.automaticallyAdjustsScrollViewInsets=NO;
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && self.navigationController.navigationBar.translucent == YES){
+        self.automaticallyAdjustsScrollViewInsets = NO;
         UIEdgeInsets insets= self.table.contentInset;
         insets.top= self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
         self.table.contentInset = insets;
         self.table.scrollIndicatorInsets = insets;
     }
+    
+    
+    //修复navigationBar高度问题
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     
     //设置标题
     self.navigationItem.title = @"通知";
@@ -117,6 +121,26 @@
     });
     
 }//分页加载
+
+
+//修复navigationBar高度问题
+- (void)statusBarOrientationChange:(NSNotification *)notification
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (orientation == UIInterfaceOrientationLandscapeRight || orientation ==UIInterfaceOrientationLandscapeLeft){ // home键靠左右
+        if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && self.navigationController.navigationBar.translucent == YES) {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            
+            UIEdgeInsets insets = self.tableView.contentInset;
+            
+            insets.top = self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+            insets.top -= 25;
+            self.tableView.contentInset = insets;
+            self.tableView.scrollIndicatorInsets = insets;
+        }
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {

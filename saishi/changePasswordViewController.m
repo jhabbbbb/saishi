@@ -67,9 +67,9 @@
             
             [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/change_pwd" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
              {
-                 NSLog(@"success");
+                 //NSLog(@"success");
                  NSDictionary *dict = (NSDictionary *)responseObject;
-                 NSLog(@"%@", [dict objectForKey:@"msg"]);
+                 //NSLog(@"%@", [dict objectForKey:@"msg"]);
                  if ([[dict objectForKey:@"msg"] isEqualToString:@"密码修改成功"]){
                      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[dict objectForKey:@"msg"] delegate:self cancelButtonTitle:@"确定"otherButtonTitles: nil];
                      [alert show];

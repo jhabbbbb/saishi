@@ -91,9 +91,9 @@
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/log_out" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
          {
-             NSLog(@"success");
+             //NSLog(@"success");
              NSDictionary *dict = (NSDictionary *)responseObject;
-             NSLog(@"%@", [dict objectForKey:@"msg"]);
+             //NSLog(@"%@", [dict objectForKey:@"msg"]);
              if ([[dict objectForKey:@"msg"] isEqualToString:@"登出成功"]){
                  
                  //删除用户登录状态
@@ -123,7 +123,7 @@
     if ([segue.identifier isEqualToString:@"changePassword"]){
         if ([segue.destinationViewController isKindOfClass:[changePasswordViewController class]]){
             changePasswordViewController *changePasswordVC = (changePasswordViewController *)segue.destinationViewController;
-            NSLog(@"%@", self.me.username);
+            //NSLog(@"%@", self.me.username);
             changePasswordVC.me = self.me;
         }
     }
