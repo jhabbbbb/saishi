@@ -16,7 +16,7 @@
 @property (strong, nonatomic) NSMutableArray *feedList;
 @property (strong, nonatomic) NSMutableArray *fileList;
 
-- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void(^)())completion;
+- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void(^)())completion fail:(void (^)())fail;
 
 - (void)getFileList:(void(^)())completion;
 
