@@ -58,6 +58,7 @@
     //获取通知列表
     yeshu = 1;
     [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
+        //NSLog(@"%@", self.list.notificationList);
         self.loadedData = YES;
         [self.table reloadData];
     }fail:nil];
@@ -193,8 +194,12 @@
     
     // Configure the cell...
     if (self.loadedData){
+        
+        cell.contentText = [self.list.notificationList[indexPath.row] objectForKey:@"content"];
         cell.titleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"title"];
         cell.subtitleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"content"];
+        //此处应改为:
+        //cell.subtitleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"subtitle"];
         
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
@@ -229,7 +234,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
-        return 150.0;
+        return 200.0;
     }
     else {
         return 120.0;
@@ -308,7 +313,7 @@
         if ([segue.destinationViewController isKindOfClass:[detailViewController class]]){
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
-            detailVC.text = sender.subtitleLabel.text;
+            detailVC.text = sender.contentText;
             detailVC.navigationItem.title = sender.titleLabel.text;
         }
     }
