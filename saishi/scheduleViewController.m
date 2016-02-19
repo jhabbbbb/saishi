@@ -21,8 +21,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self updateUI];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,7 +59,6 @@
      }];*/
     
     NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://121.42.157.180/qgfdyjnds/index.php/Api/richeng"]];
-    self.webView.scalesPageToFit = YES;
     [self.webView loadRequest:request];
 }
 

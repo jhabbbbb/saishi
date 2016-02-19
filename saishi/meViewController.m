@@ -105,7 +105,7 @@
                  [self presentViewController:vc animated:YES completion:nil];
              }
              else {
-                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[dict objectForKey:@"msg"] delegate:self cancelButtonTitle:@"确定"otherButtonTitles: nil];
+                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[dict objectForKey:@"msg"] delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
                  [alert show];
              }
          } failure:^(NSURLSessionDataTask *task, NSError *error) {

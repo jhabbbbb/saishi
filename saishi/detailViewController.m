@@ -18,26 +18,42 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self updateUI];
-    
-
-}
-
-- (void)updateUI
-{
-    //时间
-    self.timeLabel.text = self.time;
-    
-    //内容html解析
-    NSMutableString *html = [NSMutableString stringWithString: @"<html><head><title></title></head><body style=\"background:transparent;\">"];
-    [html appendString:self.text];
-    [html appendString:@"</body></html>"];
-    [self.content loadHTMLString:[html description] baseURL:nil];
+    [self.content loadHTMLString:[self renderHTMLWithTitle:self.title content:self.text time:self.time] baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] resourcePath]]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - private method
+
+- (NSString *)renderHTMLWithTitle:(NSString *)title content:(NSString *)content time:(NSString *)time {
+    NSString *load = [NSString stringWithFormat:@"<!DOCTYPE html> \n"
+                      "<html> \n"
+                      "<head> \n"
+                      "<meta charset=\"utf-8\"> \n"
+                      "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\"> \n"
+                      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> \n"
+                      "<link href=\"bootstrap.css\" rel=\"stylesheet\"> \n"
+                      "</head> \n"
+                      "<body> \n"
+                      "<div class=\"container\"> \n"
+                      "<div class=\"row\"> \n"
+                      "<div class=\"col-sm-12\" style=\"font-size: 16px;\"> \n"
+                      "<h3>%@</h3> \n"
+                      "<br> \n"
+                      "%@ \n"
+                      "<br><br> \n"
+                      "</div> \n"
+                      "<div class=\"col-sm-12\" style=\"color: #666666; font-size: 16px;\">%@</div> \n"
+                      "</div></div> \n"
+                      "<script src=\"bootstrap.min.js\"></script> \n"
+                      "<script src=\"jquery.min.js\"></script> \n"
+                      "<script src=\"bridge.js\"></script> \n"
+                      "</body> \n"
+                      "</html>" ,title, content, time];
+    return load;
 }
 
 /*
