@@ -53,6 +53,10 @@
     }];
     
     [self.table addInfiniteScrollingWithActionHandler:^{
+        //调整菊花的位置
+        CGRect frame = weakSelf.table.infiniteScrollingView.frame;
+        frame.origin.y -= 49.0;
+        weakSelf.table.infiniteScrollingView.frame = frame;
         [weakSelf loadTable];
     }];
     
@@ -67,6 +71,10 @@
         self.loadedData = YES;
         [self.table reloadData];
     }fail:nil];
+    
+    [self.table.pullToRefreshView setTitle:@"下拉刷新" forState:SVPullToRefreshStateStopped];
+    [self.table.pullToRefreshView setTitle:@"放开刷新" forState:SVPullToRefreshStateTriggered];
+    [self.table.pullToRefreshView setTitle:@"加载中..." forState:SVPullToRefreshStateLoading];
 
 }
 
@@ -289,6 +297,7 @@
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
             detailVC.text = sender.subtitleLabel.text;
+            detailVC.navigationItem.title = sender.titleLabel.text;
         }
     }
 }

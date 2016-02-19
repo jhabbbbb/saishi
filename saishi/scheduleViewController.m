@@ -7,10 +7,10 @@
 //
 
 #import "scheduleViewController.h"
-#import "AFNetworking.h"
-#import "UIKit+AFNetworking.h"
+
 @interface scheduleViewController ()
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 
 @end
@@ -32,12 +32,34 @@
 
 - (void)updateUI
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"123"]];
+    /*UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"123"]];
     NSLog(@"%f", imageView.bounds.size.height);
     [self.scrollView addSubview:imageView];
     self.scrollView.contentSize = imageView.bounds.size;
     
-    [self.scrollView setBounces:NO];
+    [self.scrollView setBounces:NO];*/
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
+
+    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/get_img_url" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         //NSLog(@"get image success.");
+         NSDictionary *dict = (NSDictionary *)responseObject;
+         //NSLog(@"%@", dict);
+         if (dict){
+             //内容html解析
+             NSMutableString *html = [NSMutableString stringWithString: @"<html><head><title></title></head><body style=\"background:transparent;\">"];
+             [html appendString:[dict objectForKey:@"msg"]];
+             [html appendString:@"</body></html>"];
+             [self.webView loadHTMLString:[html description] baseURL:nil];
+         }
+         
+     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
+
 }
 
 /*
