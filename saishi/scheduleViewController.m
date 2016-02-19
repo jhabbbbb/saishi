@@ -39,7 +39,7 @@
     
     [self.scrollView setBounces:NO];*/
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    /*AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
 
@@ -58,8 +58,11 @@
          
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
          NSLog(@"Error: %@", error);
-     }];
-
+     }];*/
+    
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://121.42.157.180/qgfdyjnds/index.php/Api/richeng"]];
+    self.webView.scalesPageToFit = YES;
+    [self.webView loadRequest:request];
 }
 
 /*

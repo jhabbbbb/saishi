@@ -17,5 +17,7 @@
 @property (strong, nonatomic) UILabel *isTopLabel;
 @property (strong, nonatomic) NSString *time;
 
+@property (strong, nonatomic) NSString *contentText;
+
 
 @end

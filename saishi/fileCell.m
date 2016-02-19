@@ -43,7 +43,7 @@
         NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
         //NSLog(@"%@", documentsDirectoryURL);
         
-        //保存文件名
+        //保存文件名在cell中
         self.fileName = [response suggestedFilename];
         
         //返回文件路径
@@ -55,13 +55,22 @@
         [self.downloadButton setBackgroundImage:[UIImage imageNamed:@"10"]  forState:UIControlStateNormal];
         [self.downloadButton setEnabled:NO];
         
-        //记录文件的路径，用于打开文件
+        //记录文件的路径，用于打开文件，有“file://”前缀
         self.filePath = [filePath absoluteString];
         
-        //记录这个文件名对应的文件已下载
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.fileName forKey:[self.fileID stringByAppendingString:@"fileName"]];
-        [userDefaults synchronize];
+        //获得归档文件路径
+        NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.archiver"];
+        
+        //解归档
+        NSMutableDictionary *downloadedFiles = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        if (!downloadedFiles){
+            downloadedFiles = [[NSMutableDictionary alloc] initWithCapacity:42];
+        }
+        [downloadedFiles setObject:self.fileName forKey:[self.fileID stringByAppendingString:@"fileName"]];
+        
+        //归档
+        [NSKeyedArchiver archiveRootObject: downloadedFiles toFile:path];
         
         //表示这个cell的文件已下载
         self.fileIsDownloaded = YES;

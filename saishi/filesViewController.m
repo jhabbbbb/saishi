@@ -90,16 +90,23 @@
         cell.fileNameLabel.text = [[NSString alloc]initWithFormat:@"《%@》", [self.list.fileList[indexPath.row] objectForKey:@"title"]];
         cell.fileID = [self.list.fileList[indexPath.row] objectForKey:@"file"];
         
-        //取已fileName保存的“是否下载”
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *fileName= [userDefaults objectForKey:[cell.fileID stringByAppendingString:@"fileName"]];
+        
+        //获得归档文件路径
+        NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.archiver"];
+        
+        //解归档
+        NSMutableDictionary *downloadedFiles = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        NSString *fileName = [downloadedFiles objectForKey:[cell.fileID stringByAppendingString:@"fileName"]];
         
         //NSLog(@"%@", fileName);
         if (fileName){//如果有过记录，看它还在不在Documents里面
+            
             NSFileManager *fileManager = [NSFileManager defaultManager];
             //指向文件目录
             NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
             NSString *filePath = [documentsDirectory stringByAppendingPathComponent:fileName];
+            
             //NSLog(@"%@", filePath);
             if(![fileManager fileExistsAtPath:filePath]){ //如果不存在
                 
@@ -167,7 +174,7 @@
     
     fileCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.filePathToOpen = cell.filePath;
-    NSLog(@"%@", self.filePathToOpen);
+    //NSLog(@"%@", self.filePathToOpen);
     if (!cell.fileIsDownloaded){//如果没有下载
         [cell download];
     }
