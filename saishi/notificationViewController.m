@@ -314,7 +314,7 @@
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
             detailVC.text = sender.contentText;
-            detailVC.navigationItem.title = sender.titleLabel.text;
+            detailVC.title = sender.titleLabel.text;
         }
     }
 }

@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface detailViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UIWebView *content;
 
+@property (weak, nonatomic) IBOutlet UIWebView *content;
 
 @property (strong, nonatomic) NSString *time;
 @property (strong, nonatomic) NSString *text;

@@ -87,7 +87,7 @@
     if (self.loadedData){
         
         cell.fileTypeLabel.text = @"文件";
-        cell.fileNameLabel.text = [[NSString alloc]initWithFormat:@"《%@》", [self.list.fileList[indexPath.row] objectForKey:@"title"]];
+        cell.fileNameLabel.text = [self.list.fileList[indexPath.row] objectForKey:@"title"];
         cell.fileID = [self.list.fileList[indexPath.row] objectForKey:@"file"];
         
         

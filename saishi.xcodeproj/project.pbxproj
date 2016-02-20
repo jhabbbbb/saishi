@@ -33,6 +33,9 @@
 		68AE7F5F1C72FEF3007EFB2D /* changePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE7F5E1C72FEF3007EFB2D /* changePasswordViewController.m */; };
 		68AE7FA71C736C3F007EFB2D /* launchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68AE7FA61C736C3F007EFB2D /* launchViewController.m */; };
 		D1CAE73175563635834B6B18 /* libPods-saishi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA2464FC2240297C48BF45B6 /* libPods-saishi.a */; };
+		E9E0B20C1C778E690047C1D7 /* bootstrap.css in Resources */ = {isa = PBXBuildFile; fileRef = E9E0B2091C778E690047C1D7 /* bootstrap.css */; };
+		E9E0B20D1C778E690047C1D7 /* bootstrap.min.js in Resources */ = {isa = PBXBuildFile; fileRef = E9E0B20A1C778E690047C1D7 /* bootstrap.min.js */; };
+		E9E0B20E1C778E690047C1D7 /* jquery.min.js in Resources */ = {isa = PBXBuildFile; fileRef = E9E0B20B1C778E690047C1D7 /* jquery.min.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +109,9 @@
 		BA2464FC2240297C48BF45B6 /* libPods-saishi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-saishi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E95565101C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		E95565111C6B94B600F3FEFB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		E9E0B2091C778E690047C1D7 /* bootstrap.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = bootstrap.css; sourceTree = "<group>"; };
+		E9E0B20A1C778E690047C1D7 /* bootstrap.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = bootstrap.min.js; sourceTree = "<group>"; };
+		E9E0B20B1C778E690047C1D7 /* jquery.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +269,9 @@
 		68681E381C636AEA00080AE0 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				E9E0B2091C778E690047C1D7 /* bootstrap.css */,
+				E9E0B20A1C778E690047C1D7 /* bootstrap.min.js */,
+				E9E0B20B1C778E690047C1D7 /* jquery.min.js */,
 				687CDC6B1C68ED460094F581 /* Assets.xcassets */,
 			);
 			name = Resource;
@@ -485,6 +494,9 @@
 			files = (
 				6841FA9C1C631BC8004BACEA /* LaunchScreen.storyboard in Resources */,
 				687CDC6C1C68ED460094F581 /* Assets.xcassets in Resources */,
+				E9E0B20D1C778E690047C1D7 /* bootstrap.min.js in Resources */,
+				E9E0B20C1C778E690047C1D7 /* bootstrap.css in Resources */,
+				E9E0B20E1C778E690047C1D7 /* jquery.min.js in Resources */,
 				6841FA971C631BC8004BACEA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,7 +731,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = saishi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.JinHongxu.saishi;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.twt.edu.saishi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -731,7 +743,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = saishi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.JinHongxu.saishi;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.twt.edu.saishi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
