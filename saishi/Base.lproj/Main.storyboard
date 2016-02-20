@@ -980,28 +980,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="Xn6-Ue-3OD">
-                                        <rect key="frame" x="0.0" y="375" width="600" height="40"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xn6-Ue-3OD" id="uvj-ao-8FI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更新" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B7m-Vp-0ZY">
-                                                    <rect key="frame" x="17" y="9" width="34" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="B7m-Vp-0ZY" firstAttribute="leading" secondItem="uvj-ao-8FI" secondAttribute="leadingMargin" constant="9" id="NbR-kv-p2k"/>
-                                                <constraint firstItem="B7m-Vp-0ZY" firstAttribute="centerY" secondItem="uvj-ao-8FI" secondAttribute="centerY" id="gyG-Te-7qM"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="as1-9i-FLc">
-                                        <rect key="frame" x="0.0" y="415" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="375" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="as1-9i-FLc" id="kLp-bB-MRx">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="39"/>
@@ -1025,7 +1005,7 @@
                             <tableViewSection id="nws-ae-ZYB">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="45" id="rcp-mo-p0f">
-                                        <rect key="frame" x="0.0" y="491" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="451" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rcp-mo-p0f" id="jje-vK-2pr">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
@@ -1383,17 +1363,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cHk-qV-29O">
-                                <rect key="frame" x="355" y="338" width="75" height="26"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="7zJ-iK-TuB"/>
-                                    <constraint firstAttribute="width" constant="75" id="hRI-xv-MZd"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <state key="normal" title="登录遇到问题?">
-                                    <color key="titleColor" red="0.4823529411764706" green="0.61960784313725492" blue="0.77254901960784317" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" 账户/手机" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fBj-9I-abY">
                                 <rect key="frame" x="190" y="240" width="240" height="30"/>
                                 <constraints>
@@ -1422,17 +1391,15 @@
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fBj-9I-abY" firstAttribute="centerX" secondItem="B3a-X2-nn5" secondAttribute="centerX" constant="10" id="6s5-8G-1Ud"/>
-                            <constraint firstItem="cHk-qV-29O" firstAttribute="top" secondItem="5vc-cu-dJE" secondAttribute="bottom" constant="1" id="EM2-0G-Kc3"/>
                             <constraint firstItem="5vc-cu-dJE" firstAttribute="leading" secondItem="XIA-dr-bOL" secondAttribute="trailing" constant="8" id="HDI-By-4RL"/>
                             <constraint firstItem="RCL-oC-MXv" firstAttribute="top" secondItem="5vc-cu-dJE" secondAttribute="bottom" constant="1" id="Jw3-Lz-mPS"/>
                             <constraint firstItem="fBj-9I-abY" firstAttribute="centerY" secondItem="B3a-X2-nn5" secondAttribute="centerY" constant="-45" id="OMy-bl-ymD"/>
-                            <constraint firstItem="cHk-qV-29O" firstAttribute="trailing" secondItem="5vc-cu-dJE" secondAttribute="trailing" id="PPu-uO-0Xw"/>
                             <constraint firstItem="kvQ-S2-SiW" firstAttribute="top" secondItem="fBj-9I-abY" secondAttribute="bottom" constant="1" id="Zib-Zd-hzd"/>
                             <constraint firstItem="kvQ-S2-SiW" firstAttribute="bottom" secondItem="gkd-8N-ueE" secondAttribute="bottom" id="adA-Xt-H8t"/>
                             <constraint firstItem="lmx-w9-ES1" firstAttribute="centerX" secondItem="B3a-X2-nn5" secondAttribute="centerX" id="bld-56-XxG"/>
                             <constraint firstItem="fBj-9I-abY" firstAttribute="leading" secondItem="gkd-8N-ueE" secondAttribute="trailing" constant="8" id="cWh-pe-RgE"/>
                             <constraint firstItem="5vc-cu-dJE" firstAttribute="centerY" secondItem="B3a-X2-nn5" secondAttribute="centerY" constant="22" id="eRA-9m-zGl"/>
-                            <constraint firstItem="lmx-w9-ES1" firstAttribute="top" secondItem="cHk-qV-29O" secondAttribute="bottom" constant="30" id="fQZ-FN-2Pg"/>
+                            <constraint firstItem="lmx-w9-ES1" firstAttribute="top" secondItem="RCL-oC-MXv" secondAttribute="bottom" constant="54" id="ecg-Te-mmG"/>
                             <constraint firstItem="kvQ-S2-SiW" firstAttribute="leading" secondItem="fBj-9I-abY" secondAttribute="leading" id="lYn-K7-hic"/>
                             <constraint firstItem="5vc-cu-dJE" firstAttribute="centerX" secondItem="B3a-X2-nn5" secondAttribute="centerX" constant="10" id="mjh-16-ivU"/>
                             <constraint firstItem="RCL-oC-MXv" firstAttribute="bottom" secondItem="XIA-dr-bOL" secondAttribute="bottom" id="qZl-rT-7T4"/>

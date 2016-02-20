@@ -254,7 +254,7 @@
 				68AF081D1C6D88E900940B4C /* detailViewController */,
 				687CDC811C68FD270094F581 /* filesViewController */,
 				687CDC7D1C68FCD00094F581 /* scheduleViewController */,
-				687CDC851C68FD490094F581 /* myselfViewController */,
+				687CDC851C68FD490094F581 /* meViewController */,
 				687CDC891C69018C0094F581 /* changePasswordViewController */,
 			);
 			name = Controller;
@@ -331,13 +331,13 @@
 			name = filesViewController;
 			sourceTree = "<group>";
 		};
-		687CDC851C68FD490094F581 /* myselfViewController */ = {
+		687CDC851C68FD490094F581 /* meViewController */ = {
 			isa = PBXGroup;
 			children = (
 				68AE7F151C72F121007EFB2D /* meViewController.h */,
 				68AE7F161C72F121007EFB2D /* meViewController.m */,
 			);
-			name = myselfViewController;
+			name = meViewController;
 			sourceTree = "<group>";
 		};
 		687CDC891C69018C0094F581 /* changePasswordViewController */ = {
