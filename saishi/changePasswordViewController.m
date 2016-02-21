@@ -28,9 +28,9 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //点击空白键盘消失
-    self.view.userInteractionEnabled = YES;
+    /*self.view.userInteractionEnabled = YES;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fingerTapped:)];
-    [self.view addGestureRecognizer:singleTap];
+    [self.view addGestureRecognizer:singleTap];*/
     
     [self updateUI];
 }
@@ -60,6 +60,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if(indexPath.section == 2&&indexPath.row == 0){
+        
         if([self checkPassword]){
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -67,12 +68,18 @@
             
             [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/change_pwd" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
              {
-                 //NSLog(@"success");
                  NSDictionary *dict = (NSDictionary *)responseObject;
                  //NSLog(@"%@", [dict objectForKey:@"msg"]);
                  if ([[dict objectForKey:@"msg"] isEqualToString:@"密码修改成功"]){
                      UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:[dict objectForKey:@"msg"] delegate:self cancelButtonTitle:@"确定"otherButtonTitles: nil];
                      [alert show];
+                     
+                     //修改登录状态信息
+                     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                     NSDictionary *userInfo = @{@"phone":self.me.username, @"pwd":self.password.text};
+                     [userDefaults setObject:userInfo forKey:@"loginInfo"];
+                     [userDefaults synchronize];
+                     
                      [self.navigationController popToRootViewControllerAnimated:YES];
                  }
                  else {
@@ -89,11 +96,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-//点击空白键盘消失
--(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer
+//点击空白键盘消失(导致didSelectRowAtIndexPath无法触发)
+/*-(void)fingerTapped:(UITapGestureRecognizer *)gestureRecognizer
 {
     [self.view endEditing:YES];
-}
+}*/
 
 /*
 #pragma mark - Table view data source

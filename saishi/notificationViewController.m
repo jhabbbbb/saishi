@@ -34,7 +34,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    //[self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.tableView.estimatedRowHeight = 44.0f;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     //修复刷新坐标起点问题
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && self.navigationController.navigationBar.translucent == YES){
@@ -87,21 +88,24 @@
 //下拉刷新
 - (void)refreshTable
 {
+    
+    __weak notificationViewController *weakSelf = self;
+    
     //延时
     int64_t delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     
     //刷新
     yeshu = 1;
-    self.loadedData = NO;
-    [self.list.notificationList removeAllObjects];
+    weakSelf.loadedData = NO;
+    [weakSelf.list.notificationList removeAllObjects];
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
-            self.loadedData = YES;
-            [self.table reloadData];
-            [self.table.pullToRefreshView stopAnimating];
+        [weakSelf.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
+            weakSelf.loadedData = YES;
+            [weakSelf.table reloadData];
+            [weakSelf.table.pullToRefreshView stopAnimating];
         }fail:^(){
-            [self.table.infiniteScrollingView stopAnimating];
+            [weakSelf.table.pullToRefreshView stopAnimating];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"失败了，重试一下吧～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
         }];
@@ -111,6 +115,7 @@
 
 - (void)loadTable{
     
+    __weak notificationViewController *weakSelf = self;
     
     //延时
     int64_t delayInSeconds = 1.0;
@@ -120,12 +125,18 @@
     yeshu++;
     //NSLog(@"yeshu:%d", yeshu);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
-            self.loadedData = YES;
-            [self.table reloadData];
-            [self.table.infiniteScrollingView stopAnimating];
+        [weakSelf.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
+            weakSelf.loadedData = YES;
+            [weakSelf.table reloadData];
+            [weakSelf.table.infiniteScrollingView stopAnimating];
         } fail:^(){
-            [self.table.infiniteScrollingView stopAnimating];
+            [weakSelf.table.infiniteScrollingView stopAnimating];
+            
+            //调整菊花的位置
+            CGRect frame = weakSelf.table.infiniteScrollingView.frame;
+            frame.origin.y -= 49.0;
+            weakSelf.table.infiniteScrollingView.frame = frame;
+            
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"没有了～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
         }];
@@ -221,7 +232,7 @@
             //NSLog(@"%@", date);
             [dateFormatter setDateFormat:@"HH:mm"];
             if (indexPath.section == 0){
-                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                [dateFormatter setDateFormat:@"MM-dd HH:mm"];
             }
             NSString *time = [dateFormatter stringFromDate:date];
             cell.timeLabel.text = time;
@@ -231,7 +242,7 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+/*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
         return 200.0;
@@ -239,7 +250,7 @@
     else {
         return 120.0;
     }
-}
+}*/
 
 //第二区域的hearderView
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

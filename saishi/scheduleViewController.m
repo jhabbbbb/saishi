@@ -58,7 +58,7 @@
          NSLog(@"Error: %@", error);
      }];*/
     
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://121.42.157.180/qgfdyjnds/index.php/Api/richeng"]];
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://ame.moe/tju/schedule.html"]];
     [self.webView loadRequest:request];
 }
 

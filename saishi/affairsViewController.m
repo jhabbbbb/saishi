@@ -33,6 +33,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.tableView.estimatedRowHeight = 44.0f;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     //修复刷新坐标起点问题
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]){
@@ -71,13 +73,17 @@
         [self.table reloadData];
     }fail:nil];
     
+    //修改SVPullToRefresh的文字
     [self.table.pullToRefreshView setTitle:@"下拉刷新" forState:SVPullToRefreshStateStopped];
     [self.table.pullToRefreshView setTitle:@"放开刷新" forState:SVPullToRefreshStateTriggered];
     [self.table.pullToRefreshView setTitle:@"加载中..." forState:SVPullToRefreshStateLoading];
+   
     
 }
 
 - (void)refreshTable{
+    
+    __weak affairsViewController *weakSelf = self;
     
     //延时
     int64_t delayInSeconds = 1.0;
@@ -85,15 +91,15 @@
     
     //刷新
     yeshu = 1;
-    self.loadedData = NO;
-    [self.list.affairsList removeAllObjects];
+    weakSelf.loadedData = NO;
+    [weakSelf.list.affairsList removeAllObjects];
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.list getDataWithType:@"Huiwu" yeshu:yeshu complete:^(){
-            self.loadedData = YES;
-            [self.table reloadData];
-            [self.table.pullToRefreshView stopAnimating];
+        [weakSelf.list getDataWithType:@"Huiwu" yeshu:yeshu complete:^(){
+            weakSelf.loadedData = YES;
+            [weakSelf.table reloadData];
+            [weakSelf.table.pullToRefreshView stopAnimating];
         }fail:^(){
-            [self.table.infiniteScrollingView stopAnimating];
+            [weakSelf.table.infiniteScrollingView stopAnimating];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"失败了，重试一下吧～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
         }];
@@ -105,6 +111,7 @@
 
 - (void)loadTable{
     
+    __weak affairsViewController *weakSelf = self;
     //延时
     int64_t delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
@@ -113,12 +120,19 @@
     yeshu++;
     //NSLog(@"yeshu:%d", yeshu);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self.list getDataWithType:@"Huiwu" yeshu:yeshu complete:^(){
-            self.loadedData = YES;
-            [self.table reloadData];
-            [self.table.infiniteScrollingView stopAnimating];
+        [weakSelf.list getDataWithType:@"Huiwu" yeshu:yeshu complete:^(){
+            weakSelf.loadedData = YES;
+            [weakSelf.table reloadData];
+            [weakSelf.table.infiniteScrollingView stopAnimating];
         }fail:^(){
-            [self.table.infiniteScrollingView stopAnimating];
+            
+            [weakSelf.table.infiniteScrollingView stopAnimating];
+            
+            //调整菊花的位置
+            CGRect frame = self.table.infiniteScrollingView.frame;
+            frame.origin.y += 49.0;
+            weakSelf.table.infiniteScrollingView.frame = frame;
+            
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"没有了～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
         }];
@@ -190,9 +204,10 @@
         
         cell.contentText = [self.list.affairsList[indexPath.row] objectForKey:@"content"];
         cell.titleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"title"];
-        cell.subtitleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"content"];
-        //此处应改为:
-        //cell.subtitleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"subtitle"];
+        //cell.subtitleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"content"];
+        cell.subtitleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"subtitle"];
+        
+        //NSLog(@"%f", cell.titleLabel.frame.size.height);
         
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
@@ -203,6 +218,11 @@
         
         //处理时间
         cell.timeLabel.text = @"00:00";
+        cell.timeLabel.text = @"00:00";
+        if (indexPath.section == 0){
+            cell.timeLabel.text = @"00-00 00:00";
+        }
+        
         cell.time = [self.list.affairsList[indexPath.row] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -210,6 +230,9 @@
         if (date){
             //NSLog(@"%@", date);
             [dateFormatter setDateFormat:@"HH:mm"];
+            if (indexPath.section == 0){
+                [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+            } 
             NSString *time = [dateFormatter stringFromDate:date];
             cell.timeLabel.text = time;
         }
@@ -218,7 +241,7 @@
     return cell;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+/*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
         return 200.0;//置顶cell
@@ -226,7 +249,7 @@
     else {
         return 120.0;//普通cell
     }
-}
+}*/
 
 //第二区域的hearderView
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section

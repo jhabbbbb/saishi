@@ -59,7 +59,7 @@
         self.filePath = [filePath absoluteString];
         
         //获得归档文件路径
-        NSString *documentsDirectory= [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, 0) objectAtIndex:0];
+        NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.archiver"];
         
         //解归档

@@ -40,16 +40,18 @@
 {
     for (NSDictionary *dic in dict){
         //若要插入一条新的置顶消息
-        if ([[dic objectForKey:@"isup"] isEqualToString:@"1"]){
-            //查看原来有没有置顶消息，有就将它移除，根据api，它不会从列表中消失
-            if ([list count]&&[[[list firstObject] objectForKey:@"isup"] isEqualToString:@"1"]){
-                [list removeObjectAtIndex:0];
+        if (dic != [NSNull null]){
+            if ([[dic objectForKey:@"isup"] isEqualToString:@"1"]){
+                //查看原来有没有置顶消息，有就将它移除，根据api，它不会从列表中消失
+                    if ([list count]&&[[[list firstObject] objectForKey:@"isup"] isEqualToString:@"1"]){
+                        [list removeObjectAtIndex:0];
+                    }
+                //把新的置顶消息插入到第0位
+                [list insertObject:dic atIndex:0];
             }
-            //把新的置顶消息插入到第0位
-            [list insertObject:dic atIndex:0];
-        }
-        else {
-            [list addObject:dic];
+            else {
+                [list addObject:dic];
+            }
         }
     }
 }

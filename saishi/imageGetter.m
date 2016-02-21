@@ -16,6 +16,11 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     
+    //要删！
+    /*if (ID == [NSNull null]){
+        ID = @"1";
+    }*/
+    
     NSDictionary *parameter = @{@"imgid": ID};
     [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/get_img_url" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
      {
@@ -27,7 +32,7 @@
          completion();
          
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
-         NSLog(@"Error: %@", error);
+         //NSLog(@"qingqiutupianError");
      }];
 
 }
