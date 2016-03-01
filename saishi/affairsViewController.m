@@ -128,7 +128,7 @@
             
             [weakSelf.table.infiniteScrollingView stopAnimating];
             
-            //调整菊花的位置
+            //修复刷新失败菊花位置上移的问题
             CGRect frame = self.table.infiniteScrollingView.frame;
             frame.origin.y += 49.0;
             weakSelf.table.infiniteScrollingView.frame = frame;
@@ -202,16 +202,21 @@
     // Configure the cell...
     if (self.loadedData){
         
-        cell.contentText = [self.list.affairsList[indexPath.row] objectForKey:@"content"];
-        cell.titleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"title"];
-        //cell.subtitleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"content"];
-        cell.subtitleLabel.text = [self.list.affairsList[indexPath.row] objectForKey:@"subtitle"];
+        NSInteger index = indexPath.row;
+        if (indexPath.section >= 1){
+            index++;
+        }
+        
+        cell.contentText = [self.list.affairsList[index] objectForKey:@"content"];
+        cell.titleLabel.text = [self.list.affairsList[index] objectForKey:@"title"];
+        //cell.subtitleLabel.text = [self.list.affairsList[index] objectForKey:@"content"];
+        cell.subtitleLabel.text = [self.list.affairsList[index] objectForKey:@"subtitle"];
         
         //NSLog(@"%f", cell.titleLabel.frame.size.height);
         
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
-        [imgGetter getImageWithID:[self.list.affairsList[indexPath.row] objectForKey:@"icon"] complete:^(){
+        [imgGetter getImageWithID:[self.list.affairsList[index] objectForKey:@"icon"] complete:^(){
             [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL] placeholderImage:[UIImage imageNamed:@"imagePlaceholder"]];
         }];
         
@@ -222,8 +227,7 @@
         if (indexPath.section == 0){
             cell.timeLabel.text = @"00-00 00:00";
         }
-        
-        cell.time = [self.list.affairsList[indexPath.row] objectForKey:@"createtime"];
+        cell.time = [self.list.affairsList[index] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [dateFormatter dateFromString:cell.time];

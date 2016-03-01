@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Oval 4@2x.png",
+      "filename" : "fileTypeBackground.png",
       "scale" : "1x"
     },
     {
@@ -11,7 +11,6 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "Oval 4@3x.png",
       "scale" : "3x"
     }
   ],

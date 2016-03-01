@@ -132,9 +132,9 @@
         } fail:^(){
             [weakSelf.table.infiniteScrollingView stopAnimating];
             
-            //调整菊花的位置
+            //修复刷新失败菊花位置上移的问题
             CGRect frame = weakSelf.table.infiniteScrollingView.frame;
-            frame.origin.y -= 49.0;
+            frame.origin.y += 49.0;
             weakSelf.table.infiniteScrollingView.frame = frame;
             
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"没有了～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
@@ -205,16 +205,19 @@
     
     // Configure the cell...
     if (self.loadedData){
+        NSInteger index = indexPath.row;
+        if (indexPath.section >= 1){
+            index++;
+        }
         
-        cell.contentText = [self.list.notificationList[indexPath.row] objectForKey:@"content"];
-        cell.titleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"title"];
-        cell.subtitleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"content"];
-        //此处应改为:
-        //cell.subtitleLabel.text = [self.list.notificationList[indexPath.row] objectForKey:@"subtitle"];
+        cell.contentText = [self.list.notificationList[index] objectForKey:@"content"];
+        cell.titleLabel.text = [self.list.notificationList[index] objectForKey:@"title"];
+        //cell.subtitleLabel.text = [self.list.notificationList[index] objectForKey:@"content"];
+        cell.subtitleLabel.text = [self.list.notificationList[index] objectForKey:@"subtitle"];
         
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
-        [imgGetter getImageWithID:[self.list.notificationList[indexPath.row] objectForKey:@"icon"] complete:^(){
+        [imgGetter getImageWithID:[self.list.notificationList[index] objectForKey:@"icon"] complete:^(){
             //NSLog(@"%@", imgGetter.imageURL);
             [cell.image setImageWithURL:[NSURL URLWithString:imgGetter.imageURL] placeholderImage:[UIImage imageNamed:@"imagePlaceholder"]];
         }];
@@ -224,7 +227,7 @@
         if (indexPath.section == 0){
             cell.timeLabel.text = @"00-00 00:00";
         }
-        cell.time = [self.list.notificationList[indexPath.row] objectForKey:@"createtime"];
+        cell.time = [self.list.notificationList[index] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [dateFormatter dateFromString:cell.time];

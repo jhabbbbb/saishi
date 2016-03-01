@@ -86,18 +86,28 @@
     // Configure the cell...
     if (self.loadedData){
         
+        NSInteger index = indexPath.row;
+        if (indexPath.section >= 1){
+            index++;
+        }
+        
         cell.fileTypeLabel.text = @"文件";
-        cell.fileNameLabel.text = [self.list.fileList[indexPath.row] objectForKey:@"title"];
-        cell.fileID = [self.list.fileList[indexPath.row] objectForKey:@"file"];
+        if ([self.list.fileList[index] objectForKey:@"type"] != [NSNull null]){
+            cell.fileTypeLabel.text = [self.list.fileList[index] objectForKey:@"type"];
+        }
+        cell.fileNameLabel.text = [self.list.fileList[index] objectForKey:@"title"];
+        cell.fileID = [self.list.fileList[index] objectForKey:@"file"];
         
         
         //获得归档文件路径
         NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.archiver"];
+        //NSLog(@"%@", path);
         
         //解归档
         NSMutableDictionary *downloadedFiles = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         NSString *fileName = [downloadedFiles objectForKey:[cell.fileID stringByAppendingString:@"fileName"]];
+        cell.fileName = fileName;
         
         //NSLog(@"%@", fileName);
         if (fileName){//如果有过记录，看它还在不在Documents里面
@@ -128,6 +138,7 @@
                 //为预览文件准备filePath
                 cell.filePath = [NSString stringWithFormat:@"file://%@", filePath];
                 
+                
                 //表示文件已下载
                 cell.fileIsDownloaded = YES;
             }
@@ -144,7 +155,7 @@
         
         //处理时间
         cell.timeLabel.text = @"00:00";
-        cell.time = [self.list.fileList[indexPath.row] objectForKey:@"createtime"];
+        cell.time = [self.list.fileList[index] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [dateFormatter dateFromString:cell.time];
@@ -175,6 +186,9 @@
     fileCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.filePathToOpen = cell.filePath;
     //NSLog(@"%@", self.filePathToOpen);
+    if ([[NSFileManager defaultManager] fileExistsAtPath:cell.filePath]){
+        NSLog(@"aa");
+    }
     if (!cell.fileIsDownloaded){//如果没有下载
         [cell download];
     }
@@ -189,6 +203,9 @@
         //[self.navigationController showViewController:myQlPreViewController sender:nil];
         [self showViewController:myQlPreViewController sender:nil];
     }
+    
+    //取消选中状态
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
 
