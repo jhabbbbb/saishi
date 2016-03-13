@@ -24,6 +24,13 @@
     return _list;
 }
 
+- (user *)me
+{
+    if (!_me) _me = [[user alloc] init];
+    return _me;
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -48,6 +55,9 @@
     //修复navigationBar高度问题
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     
+    //从mainTabBarController获取用户
+    self.me = [(mainTabBarController *)self.navigationController.tabBarController me];
+    
     //添加下拉刷新、分页加载控件
     __weak feedViewController *weakSelf = self;
     [self.table addPullToRefreshWithActionHandler:^{
@@ -69,10 +79,10 @@
     //获取动态列表
     yeshu = 1;
     [self.list getDataWithType:@"Dongtai" yeshu:yeshu complete:^(){
-        //NSLog(@"%@", self.list.feedList);
+        NSLog(@"%@", self.list.feedList);
         self.loadedData = YES;
         [self.table reloadData];
-    }fail:nil];
+    }relogin:nil fail:nil];
     
     [self.table.pullToRefreshView setTitle:@"下拉刷新" forState:SVPullToRefreshStateStopped];
     [self.table.pullToRefreshView setTitle:@"放开刷新" forState:SVPullToRefreshStateTriggered];
@@ -97,7 +107,7 @@
             weakSelf.loadedData = YES;
             [weakSelf.table reloadData];
             [weakSelf.table.pullToRefreshView stopAnimating];
-        }fail:^(){
+        }relogin:nil fail:^(){
             [weakSelf.table.pullToRefreshView stopAnimating];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"失败了，重试一下吧～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
@@ -122,7 +132,7 @@
             weakSelf.loadedData = YES;
             [weakSelf.table reloadData];
             [weakSelf.table.infiniteScrollingView stopAnimating];
-        }fail:^(){
+        }relogin:nil fail:^(){
             
             [weakSelf.table.infiniteScrollingView stopAnimating];
             
@@ -166,7 +176,6 @@
 #pragma mark - Table view data source
 //tableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning need fix by createTime
     if (self.loadedData){
         return 2;
     }
@@ -176,7 +185,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning need fix by createTime 用日期初始化时间
     if (section == 0){
         return 1;
     }
@@ -204,9 +212,11 @@
         }
         
         cell.contentText = [self.list.feedList[index] objectForKey:@"content"];
+        cell.ID = [self.list.feedList[index] objectForKey:@"id"];
         cell.titleLabel.text = [self.list.feedList[index] objectForKey:@"title"];
+        cell.readCountLabel.text = [NSString stringWithFormat:@"阅读量:%@", [self.list.feedList[index] objectForKey:@"fwl"]];
         //cell.subtitleLabel.text = [self.list.feedList[index] objectForKey:@"content"];
-        cell.subtitleLabel.text = [self.list.feedList[index] objectForKey:@"subtitle"];
+        //cell.subtitleLabel.text = [self.list.feedList[index] objectForKey:@"subtitle"];
         
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
@@ -217,9 +227,8 @@
         
         //处理时间
         cell.timeLabel.text = @"00:00";
-        cell.timeLabel.text = @"00:00";
         if (indexPath.section == 0){
-            cell.timeLabel.text = @"00-00 00:00";
+            cell.timeLabel.text = @"0000-00-00 00:00";
         }
         cell.time = [self.list.feedList[index] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -229,7 +238,7 @@
             //NSLog(@"%@", date);
             [dateFormatter setDateFormat:@"HH:mm"];
             if (indexPath.section == 0){
-                [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             }
             NSString *time = [dateFormatter stringFromDate:date];
             cell.timeLabel.text = time;
@@ -237,6 +246,37 @@
     }
     
     return cell;
+}
+
+//点击置顶cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0&&indexPath.row == 0){
+        customCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [self addReadCountWithID:cell.ID];
+        detailViewController *detailVC= [self.storyboard instantiateViewControllerWithIdentifier:@"detailViewController"];
+        detailVC.time = cell.time;
+        detailVC.text = cell.contentText;
+        detailVC.title = cell.titleLabel.text;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
+    
+    //取消选中状态
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+}
+
+//增加阅读数
+- (void)addReadCountWithID:(NSString *)ID {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSDictionary *parameter = @{@"id": ID};
+    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/fangwen" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         //NSLog(@"success");
+     }failure:^(NSURLSessionDataTask *task, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
 }
 
 /*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -251,7 +291,7 @@
 
 
 //第二区域的hearderView
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+/*- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
     UIView *headerView;
@@ -276,7 +316,7 @@
     }
     
     return headerView;
-}
+}*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -322,12 +362,20 @@
  {
     if ([segue.identifier isEqualToString:@"detail"]){
         if ([segue.destinationViewController isKindOfClass:[detailViewController class]]){
+            [self addReadCountWithID:sender.ID];
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
             detailVC.text = sender.contentText;
             detailVC.title = sender.titleLabel.text;
         }
     }
+     
+     if ([segue.identifier isEqualToString:@"me"]){
+         if ([segue.destinationViewController isKindOfClass:[meViewController class]]){
+             meViewController *meVC = (meViewController *)segue.destinationViewController;
+             meVC.me = self.me;
+         }
+     }
 }
 
 @end

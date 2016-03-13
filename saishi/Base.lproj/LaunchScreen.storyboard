@@ -64,13 +64,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主办：教育部思想工作室" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZe-Ew-kdm">
-                                <rect key="frame" x="20" y="408" width="176" height="20"/>
+                                <rect key="frame" x="20" y="410" width="176" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="承办：全国高校辅导员工作研究会" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duC-kT-f95">
-                                <rect key="frame" x="20" y="436" width="240" height="20"/>
+                                <rect key="frame" x="20" y="438" width="240" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -82,7 +82,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="赛区承办：天津市委高校工委 天津大学" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-i9-6lT">
-                                <rect key="frame" x="20" y="464" width="277" height="20"/>
+                                <rect key="frame" x="20" y="466" width="277" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -104,7 +104,7 @@
                             <constraint firstItem="gz8-19-CKk" firstAttribute="leading" secondItem="AcT-rj-2W2" secondAttribute="leading" id="ab0-zj-YTv"/>
                             <constraint firstAttribute="bottom" secondItem="AcT-rj-2W2" secondAttribute="bottom" constant="20" symbolic="YES" id="cd7-nL-YGh"/>
                             <constraint firstItem="AcT-rj-2W2" firstAttribute="top" secondItem="gz8-19-CKk" secondAttribute="bottom" constant="8" symbolic="YES" id="hqn-ll-mpl"/>
-                            <constraint firstItem="gz8-19-CKk" firstAttribute="top" secondItem="Ld4-i9-6lT" secondAttribute="bottom" constant="46" id="mip-V8-ePe"/>
+                            <constraint firstItem="gz8-19-CKk" firstAttribute="top" secondItem="Ld4-i9-6lT" secondAttribute="bottom" constant="44" id="mip-V8-ePe"/>
                             <constraint firstItem="duC-kT-f95" firstAttribute="leading" secondItem="Ld4-i9-6lT" secondAttribute="leading" id="ron-La-4t7"/>
                             <constraint firstItem="lWx-36-Gdu" firstAttribute="top" secondItem="gz8-19-CKk" secondAttribute="top" id="uT4-AM-C70"/>
                             <constraint firstItem="AcT-rj-2W2" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="xFn-hM-FTO"/>

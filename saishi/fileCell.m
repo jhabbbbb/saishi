@@ -24,6 +24,8 @@
     // Configure the view for the selected state
 }
 
+
+/*
 //下载文件
 - (IBAction)downloadFile:(id)sender {
     [self download];
@@ -100,6 +102,7 @@
         NSLog(@"Error: %@", error);
     }];
 }
+ */
 
 
 @end

@@ -29,9 +29,9 @@
     return _feedList;
 }
 
-- (NSMutableArray *)fileList
+- (NSArray *)fileList
 {
-    if (!_fileList) _fileList = [[NSMutableArray alloc] init];
+    if (!_fileList) _fileList = [[NSArray alloc] init];
     return _fileList;
 }
 
@@ -39,9 +39,8 @@
 - (void)addObjectstolist:(NSMutableArray *)list withArray:(NSArray *)dict
 {
     for (NSDictionary *dic in dict){
-        //若要插入一条新的置顶消息
-        if (dic != [NSNull null]){
-            if ([[dic objectForKey:@"isup"] isEqualToString:@"1"]){
+        if (![dic isEqual: [NSNull null]]){//若dic非空
+            if ([[dic objectForKey:@"isup"] isEqualToString:@"1"]){//若要插入一条新的置顶消息
                 //查看原来有没有置顶消息，有就将它移除，根据api，它不会从列表中消失
                     if ([list count]&&[[[list firstObject] objectForKey:@"isup"] isEqualToString:@"1"]){
                         [list removeObjectAtIndex:0];
@@ -57,7 +56,7 @@
 }
 
 //根据type("Tongzhi", "Dongtai", "Huiwu")和yeshu获取列表，在completion中更新UI
-- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void (^)())completion fail:(void (^)())fail
+- (void)getDataWithType:(NSString *)type yeshu:(int)yeshu complete:(void (^)())completion relogin:(void (^)())relogin fail:(void (^)())fail
 {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -69,7 +68,6 @@
         //NSLog(@"%@",dict);
         if ([type isEqualToString:@"Tongzhi"]){
             [self addObjectstolist:self.notificationList withArray:dict];
-    
         }
         else if ([type isEqualToString:@"Dongtai"]){
             [self addObjectstolist:self.feedList withArray:dict];
@@ -94,6 +92,7 @@
     
     [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/wenjian" parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *dict = (NSArray *)responseObject;
+        //NSLog(@"%@", dict);
         self.fileList = dict;
         
         completion();

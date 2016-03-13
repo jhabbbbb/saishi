@@ -12,6 +12,9 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
+@property (strong, nonatomic) NSURLCache *urlCache;
+@property (strong, nonatomic) NSURL *url;
+@property (strong, nonatomic) NSMutableURLRequest *request;
 
 @end
 
@@ -20,6 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //从mainTabBarController获取用户
+    self.me = [(mainTabBarController *)self.navigationController.tabBarController me];
+    
+    
     [self updateUI];
 }
 
@@ -57,9 +65,11 @@
      } failure:^(NSURLSessionDataTask *task, NSError *error) {
          NSLog(@"Error: %@", error);
      }];*/
-    
-    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://ame.moe/tju/schedule.html"]];
+
+    NSURLRequest *request =[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://news.twt.edu.cn/fdyds/schedule.html"]];
     [self.webView loadRequest:request];
+    
+    
 }
 
 /*
@@ -71,5 +81,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"me"]){
+        if ([segue.destinationViewController isKindOfClass:[meViewController class]]){
+            meViewController *meVC = (meViewController *)segue.destinationViewController;
+            meVC.me = self.me;
+        }
+    }
+}
 
 @end

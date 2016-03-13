@@ -24,6 +24,13 @@
     return _list;
 }
 
+- (user *)me
+{
+    if (!_me) _me = [[user alloc] init];
+    return _me;
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -48,6 +55,9 @@
     //修复navigationBar高度问题
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     
+    //从mainTabBarController获取用户
+    self.me = [(mainTabBarController *)self.navigationController.tabBarController me];
+    
     //添加下拉刷新、分页加载控件
     __weak affairsViewController *weakSelf = self;
     [self.table addPullToRefreshWithActionHandler:^{
@@ -71,7 +81,7 @@
         //NSLog(@"%@", self.list.affairsList);
         self.loadedData = YES;
         [self.table reloadData];
-    }fail:nil];
+    }relogin:nil fail:nil];
     
     //修改SVPullToRefresh的文字
     [self.table.pullToRefreshView setTitle:@"下拉刷新" forState:SVPullToRefreshStateStopped];
@@ -98,7 +108,7 @@
             weakSelf.loadedData = YES;
             [weakSelf.table reloadData];
             [weakSelf.table.pullToRefreshView stopAnimating];
-        }fail:^(){
+        }relogin:nil fail:^(){
             [weakSelf.table.infiniteScrollingView stopAnimating];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"失败了，重试一下吧～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
@@ -124,7 +134,7 @@
             weakSelf.loadedData = YES;
             [weakSelf.table reloadData];
             [weakSelf.table.infiniteScrollingView stopAnimating];
-        }fail:^(){
+        }relogin:nil fail:^(){
             
             [weakSelf.table.infiniteScrollingView stopAnimating];
             
@@ -168,8 +178,6 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning need fix by createTime 用创建日期分区
-    
     if (self.loadedData){
         return 2;
     }
@@ -179,7 +187,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning need fix by createTime 用创建日期分区
     if (section == 0){
         return 1;
     }
@@ -208,9 +215,10 @@
         }
         
         cell.contentText = [self.list.affairsList[index] objectForKey:@"content"];
+        cell.ID = [self.list.affairsList[index] objectForKey:@"id"];
         cell.titleLabel.text = [self.list.affairsList[index] objectForKey:@"title"];
-        //cell.subtitleLabel.text = [self.list.affairsList[index] objectForKey:@"content"];
-        cell.subtitleLabel.text = [self.list.affairsList[index] objectForKey:@"subtitle"];
+        cell.readCountLabel.text = [NSString stringWithFormat:@"阅读量:%@", [self.list.affairsList[index] objectForKey:@"fwl"]];
+        //cell.subtitleLabel.text = [self.list.affairsList[index] objectForKey:@"subtitle"];
         
         //NSLog(@"%f", cell.titleLabel.frame.size.height);
         
@@ -245,6 +253,38 @@
     return cell;
 }
 
+//点击置顶cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0&&indexPath.row == 0){
+        customCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [self addReadCountWithID:cell.ID];
+        detailViewController *detailVC= [self.storyboard instantiateViewControllerWithIdentifier:@"detailViewController"];
+        detailVC.time = cell.time;
+        detailVC.text = cell.contentText;
+        detailVC.title = cell.titleLabel.text;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
+    
+    //取消选中状态
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+}
+
+//增加阅读数
+- (void)addReadCountWithID:(NSString *)ID {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSDictionary *parameter = @{@"id": ID};
+    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/fangwen" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         //NSLog(@"success");
+     }failure:^(NSURLSessionDataTask *task, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
+}
+
+
 /*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
@@ -256,7 +296,7 @@
 }*/
 
 //第二区域的hearderView
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+/*- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
     UIView *headerView;
@@ -281,7 +321,7 @@
     }
     
     return headerView;
-}
+}*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -327,10 +367,18 @@
 {
     if ([segue.identifier isEqualToString:@"detail"]){
         if ([segue.destinationViewController isKindOfClass:[detailViewController class]]){
+            [self addReadCountWithID:sender.ID];
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
             detailVC.text = sender.contentText;
             detailVC.title = sender.titleLabel.text;
+        }
+    }
+    
+    if ([segue.identifier isEqualToString:@"me"]){
+        if ([segue.destinationViewController isKindOfClass:[meViewController class]]){
+            meViewController *meVC = (meViewController *)segue.destinationViewController;
+            meVC.me = self.me;
         }
     }
 }

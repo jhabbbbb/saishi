@@ -10,7 +10,7 @@
 
 @interface filesViewController ()
 @property (strong, nonatomic) IBOutlet UITableView *table;
-@property (strong, nonatomic) NSString *filePathToOpen;
+//@property (strong, nonatomic) NSString *filePathToOpen;
 
 
 @property (nonatomic) BOOL loadedData;//数据是否加载
@@ -36,12 +36,63 @@
     self.navigationItem.title = @"文件";
     self.loadedData = NO;
     
+    //修复刷新坐标起点问题
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && self.navigationController.navigationBar.translucent == YES){
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        UIEdgeInsets insets= self.table.contentInset;
+        insets.top= self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+        self.table.contentInset = insets;
+        self.table.scrollIndicatorInsets = insets;
+    }
+    
+    
+    //修复navigationBar高度问题
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarOrientationChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    
+    //从mainTabBarController获取用户
+    self.me = [(mainTabBarController *)self.navigationController.tabBarController me];
+    
     //获取文件列表
     [self.list getFileList:^(){
         //NSLog(@"%@", self.list.fileList);
         self.loadedData = YES;
         [self.table reloadData];
     }];
+    
+    //添加下拉刷新、分页加载控件
+    __weak filesViewController *weakSelf = self;
+    [self.table addPullToRefreshWithActionHandler:^{
+        [weakSelf refreshTable];
+    }];
+    
+    //SVPullToRefresh设置
+    [self.table.pullToRefreshView setTitle:@"下拉刷新" forState:SVPullToRefreshStateStopped];
+    [self.table.pullToRefreshView setTitle:@"放开刷新" forState:SVPullToRefreshStateTriggered];
+    [self.table.pullToRefreshView setTitle:@"加载中..." forState:SVPullToRefreshStateLoading];
+
+}
+
+//下拉刷新
+- (void)refreshTable
+{
+    
+    __weak filesViewController *weakSelf = self;
+    
+    //延时
+    int64_t delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    
+    //刷新
+    weakSelf.loadedData = NO;
+    [weakSelf.list.notificationList removeAllObjects];
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [weakSelf.list getFileList:^(){
+            weakSelf.loadedData = YES;
+            [weakSelf.table reloadData];
+            [weakSelf.table.pullToRefreshView stopAnimating];
+        }];
+    });
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,12 +100,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+//修复navigationBar高度问题
+- (void)statusBarOrientationChange:(NSNotification *)notification
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (orientation == UIInterfaceOrientationLandscapeRight || orientation ==UIInterfaceOrientationLandscapeLeft){ // home键靠左右
+        if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)] && self.navigationController.navigationBar.translucent == YES) {
+            self.automaticallyAdjustsScrollViewInsets = NO;
+            
+            UIEdgeInsets insets = self.tableView.contentInset;
+            
+            insets.top = self.navigationController.navigationBar.bounds.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+            insets.top -= 25;
+            self.tableView.contentInset = insets;
+            self.tableView.scrollIndicatorInsets = insets;
+        }
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning need fix by createTime
+
     if (self.loadedData){
-        return 2;
+        return 1;
     }
     else {
         return 0;
@@ -62,43 +132,40 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning need fix by createTime 用创建日期分区
-    if (section == 0){
-        return 1;
-    }
-    else {
-        return [self.list.fileList count]-1;
-    }
+    
+    return [self.list.fileList count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    fileCell *cell;
-    
-    if (indexPath.section == 0){
-        cell = [tableView dequeueReusableCellWithIdentifier:@"topFileCell" forIndexPath:indexPath];//置顶cell
-    }
-    else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"normalFileCell" forIndexPath:indexPath];//普通cell
-    }
+    fileCell *cell = [tableView dequeueReusableCellWithIdentifier:@"normalFileCell" forIndexPath:indexPath];//普通cell
     
     // Configure the cell...
     if (self.loadedData){
         
-        NSInteger index = indexPath.row;
-        if (indexPath.section >= 1){
-            index++;
-        }
-        
-        cell.fileTypeLabel.text = @"文件";
-        if ([self.list.fileList[index] objectForKey:@"type"] != [NSNull null]){
-            cell.fileTypeLabel.text = [self.list.fileList[index] objectForKey:@"type"];
-        }
-        cell.fileNameLabel.text = [self.list.fileList[index] objectForKey:@"title"];
-        cell.fileID = [self.list.fileList[index] objectForKey:@"file"];
         
         
+        //文件类型和背景色
+        cell.fileTypeLabel.text = [self.list.fileList[indexPath.row] objectForKey:@"tag"];
+        float red = [[self.list.fileList[indexPath.row] objectForKey:@"r"] floatValue];
+        float green = [[self.list.fileList[indexPath.row] objectForKey:@"g"] floatValue];
+        float blue = [[self.list.fileList[indexPath.row] objectForKey:@"b"] floatValue];
+        cell.fileTypeLabel.backgroundColor = [UIColor colorWithRed:red/255.0f
+                                                             green:green/255.0f
+                                                              blue:blue/255.0f
+                                                             alpha:1];
+        
+        
+        //文件的信息
+        cell.text = [self.list.fileList[indexPath.row] objectForKey:@"content"];
+        cell.fileNameLabel.text = [self.list.fileList[indexPath.row] objectForKey:@"title"];
+        
+        //cell.fileID = [self.list.fileList[index] objectForKey:@"file"];
+        
+        
+        /*
+        //根据文件的ID判断是否被下载过了
         //获得归档文件路径
         NSString *documentsDirectory= [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.archiver"];
@@ -126,6 +193,9 @@
                 
                 //表示文件没有下载
                 cell.fileIsDownloaded = NO;
+                
+                #warning 需要将archiver中的纪录删除
+                
                 [cell getFileURL];
                 
             }
@@ -152,10 +222,11 @@
         }
         
         [cell getFileURL];
+         */
         
         //处理时间
         cell.timeLabel.text = @"00:00";
-        cell.time = [self.list.fileList[index] objectForKey:@"createtime"];
+        cell.time = [self.list.fileList[indexPath.row] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSDate *date = [dateFormatter dateFromString:cell.time];
@@ -172,16 +243,11 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0){
-        return 150.0;//置顶cell
-    }
-    else {
-        return 120.0;//普通cell
-    }
+    return 96.0;//普通cell
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+/*- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     fileCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     self.filePathToOpen = cell.filePath;
@@ -204,14 +270,15 @@
         [self showViewController:myQlPreViewController sender:nil];
     }
     
+    
     //取消选中状态
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-}
+}*/
 
 
 //quickLookDatasource
-- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller
+/*- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller
 {
     return 1;
 }
@@ -220,7 +287,7 @@
 {
     //普通url前记得加file://
     return [NSURL URLWithString:self.filePathToOpen];
-}
+}*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -265,5 +332,24 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(fileCell *)sender
+{
+
+    if ([segue.identifier isEqualToString:@"detail"]){
+        if ([segue.destinationViewController isKindOfClass:[detailViewController class]]){
+            detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
+            detailVC.time = sender.time;
+            detailVC.text = sender.text;
+            detailVC.title = sender.fileNameLabel.text;
+        }
+    }
+    if ([segue.identifier isEqualToString:@"me"]){
+        if ([segue.destinationViewController isKindOfClass:[meViewController class]]){
+            meViewController *meVC = (meViewController *)segue.destinationViewController;
+            meVC.me = self.me;
+        }
+    }
+}
 
 @end

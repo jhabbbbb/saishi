@@ -12,10 +12,11 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *subtitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) UILabel *isTopLabel;
-@property (strong, nonatomic) NSString *time;
+@property (weak, nonatomic) IBOutlet UILabel *readCountLabel;
+
+@property (strong, nonatomic) NSString *ID;//数据的ID
+@property (strong, nonatomic) NSString *time;//数据的时间
 
 @property (strong, nonatomic) NSString *contentText;
 

@@ -14,8 +14,11 @@
 #import "imageGetter.h"
 #import "detailViewController.h"
 #import "SVPullToRefresh.h"
+#import "meViewController.h"
+#import "user.h"
+#import "mainTabBarController.h"
 @interface affairsViewController : UITableViewController
 
 @property (strong, nonatomic) dataList *list;
-
+@property (strong, nonatomic) user *me;
 @end

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AFNetworking.h"
-
+#import "user.h"
+#import "mainTabBarController.h"
+#import "meViewController.h"
 @interface scheduleViewController : UIViewController
-
+@property (strong, nonatomic) user *me;
 @end

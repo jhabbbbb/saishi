@@ -15,12 +15,16 @@
 @property (weak, nonatomic) IBOutlet UILabel *fileNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
+/*
 @property (strong, nonatomic) NSString *fileID;
 @property (strong, nonatomic) NSString *fileURL;
 @property (strong, nonatomic) NSString *filePath;
 @property (strong, nonatomic) NSString *fileName;
+ */
 @property (strong, nonatomic) NSString *time;
+@property (strong, nonatomic) NSString *text;
 
+/*
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 
 @property (nonatomic) BOOL fileIsDownloaded;
@@ -28,5 +32,6 @@
 - (void)getFileURL;
 
 - (void)download;
+*/
 
 @end

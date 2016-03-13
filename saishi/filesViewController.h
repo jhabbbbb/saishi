@@ -12,8 +12,13 @@
 #import "dataList.h"
 #import "fileCell.h"
 #import "QuickLook/QuickLook.h"
-@interface filesViewController : UITableViewController<QLPreviewControllerDataSource, QLPreviewControllerDelegate>
+#import "meViewController.h"
+#import "user.h"
+#import "mainTabBarController.h"
+#import "detailViewController.h"
+#import "SVPullToRefresh.h"
+@interface filesViewController : UITableViewController/*<QLPreviewControllerDataSource, QLPreviewControllerDelegate>*/
 
 @property (strong, nonatomic) dataList *list;
-
+@property (strong, nonatomic) user *me;
 @end

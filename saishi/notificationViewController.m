@@ -19,6 +19,13 @@
 
 @implementation notificationViewController
 
+- (user *)me
+{
+    if (!_me) _me = [[user alloc] init];
+    return _me;
+    
+}
+
 - (dataList *)list
 {
     if (!_list) _list = [[dataList alloc] init];
@@ -34,6 +41,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    
+    //从mainTabBarController获取用户
+    self.me = [(mainTabBarController *)self.navigationController.tabBarController me];
+    
+    //cell自适应高度
     self.tableView.estimatedRowHeight = 44.0f;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -62,7 +74,7 @@
         //NSLog(@"%@", self.list.notificationList);
         self.loadedData = YES;
         [self.table reloadData];
-    }fail:nil];
+    }relogin:nil fail:nil];
     
     //添加下拉刷新、分页加载控件
     __weak notificationViewController *weakSelf = self;
@@ -104,7 +116,7 @@
             weakSelf.loadedData = YES;
             [weakSelf.table reloadData];
             [weakSelf.table.pullToRefreshView stopAnimating];
-        }fail:^(){
+        }relogin:nil fail:^(){
             [weakSelf.table.pullToRefreshView stopAnimating];
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"失败了，重试一下吧～" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
             [alert show];
@@ -113,6 +125,8 @@
 
 }
 
+
+//分页加载
 - (void)loadTable{
     
     __weak notificationViewController *weakSelf = self;
@@ -129,7 +143,7 @@
             weakSelf.loadedData = YES;
             [weakSelf.table reloadData];
             [weakSelf.table.infiniteScrollingView stopAnimating];
-        } fail:^(){
+        }relogin:nil fail:^(){
             [weakSelf.table.infiniteScrollingView stopAnimating];
             
             //修复刷新失败菊花位置上移的问题
@@ -142,8 +156,7 @@
         }];
     });
     
-}//分页加载
-
+}
 
 //修复navigationBar高度问题
 - (void)statusBarOrientationChange:(NSNotification *)notification
@@ -173,7 +186,6 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning need fix by createTime
     if (self.loadedData){
         return 2;
     }
@@ -183,7 +195,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning need fix by createTime 用日期分区
     if (section == 0){
         return 1;
     }
@@ -211,9 +222,10 @@
         }
         
         cell.contentText = [self.list.notificationList[index] objectForKey:@"content"];
+        cell.ID = [self.list.notificationList[index] objectForKey:@"id"];
         cell.titleLabel.text = [self.list.notificationList[index] objectForKey:@"title"];
-        //cell.subtitleLabel.text = [self.list.notificationList[index] objectForKey:@"content"];
-        cell.subtitleLabel.text = [self.list.notificationList[index] objectForKey:@"subtitle"];
+        cell.readCountLabel.text = [NSString stringWithFormat:@"阅读量:%@", [self.list.notificationList[index] objectForKey:@"fwl"]];
+        //cell.subtitleLabel.text = [self.list.notificationList[index] objectForKey:@"subtitle"];
         
         //处理图片
         imageGetter *imgGetter = [[imageGetter alloc] init];
@@ -225,7 +237,7 @@
         //处理时间
         cell.timeLabel.text = @"00:00";
         if (indexPath.section == 0){
-            cell.timeLabel.text = @"00-00 00:00";
+            cell.timeLabel.text = @"0000-00-00 00:00";
         }
         cell.time = [self.list.notificationList[index] objectForKey:@"createtime"];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -235,7 +247,7 @@
             //NSLog(@"%@", date);
             [dateFormatter setDateFormat:@"HH:mm"];
             if (indexPath.section == 0){
-                [dateFormatter setDateFormat:@"MM-dd HH:mm"];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             }
             NSString *time = [dateFormatter stringFromDate:date];
             cell.timeLabel.text = time;
@@ -245,6 +257,36 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if(indexPath.section == 0&&indexPath.row == 0){
+        customCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [self addReadCountWithID:cell.ID];
+        detailViewController *detailVC= [self.storyboard instantiateViewControllerWithIdentifier:@"detailViewController"];
+        detailVC.time = cell.time;
+        detailVC.text = cell.contentText;
+        detailVC.title = cell.titleLabel.text;
+        [self.navigationController pushViewController:detailVC animated:YES];
+    }
+    
+    //取消选中状态
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+}
+
+//增加阅读数
+- (void)addReadCountWithID:(NSString *)ID {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSDictionary *parameter = @{@"id": ID};
+    [manager POST:@"http://121.42.157.180/qgfdyjnds/index.php/Api/fangwen" parameters:parameter progress:nil success:^(NSURLSessionDataTask *task, id responseObject)
+     {
+         //NSLog(@"success");
+     }failure:^(NSURLSessionDataTask *task, NSError *error) {
+         NSLog(@"Error: %@", error);
+     }];
+}
+//自定固定行高
 /*-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0){
@@ -256,7 +298,7 @@
 }*/
 
 //第二区域的hearderView
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+/*- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
  
     UIView *headerView;
@@ -281,7 +323,7 @@
     }
  
     return headerView;
-}
+}*/
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -325,10 +367,18 @@
 {
     if ([segue.identifier isEqualToString:@"detail"]){
         if ([segue.destinationViewController isKindOfClass:[detailViewController class]]){
+            [self addReadCountWithID:sender.ID];
             detailViewController *detailVC = (detailViewController *)segue.destinationViewController;
             detailVC.time = sender.time;
             detailVC.text = sender.contentText;
             detailVC.title = sender.titleLabel.text;
+        }
+    }
+    
+    if ([segue.identifier isEqualToString:@"me"]){
+        if ([segue.destinationViewController isKindOfClass:[meViewController class]]){
+            meViewController *meVC = (meViewController *)segue.destinationViewController;
+            meVC.me = self.me;
         }
     }
 }
