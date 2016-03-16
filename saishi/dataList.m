@@ -35,6 +35,27 @@
     return _fileList;
 }
 
+//排序
+- (void)sortDataList:(NSMutableArray *) sortArray
+{
+    NSComparator cmptr = ^(NSDictionary *obj1, NSDictionary *obj2){
+        if (![[obj1 objectForKey:@"paixu"] isEqual: [NSNull null]]&&![[obj2 objectForKey:@"paixu"] isEqual: [NSNull null]]){//都非空
+            if ([[obj1 objectForKey:@"paixu"] integerValue] > [[obj2 objectForKey:@"paixu"] integerValue]) {
+                return (NSComparisonResult)NSOrderedDescending;//降序
+            }
+        
+            if ([[obj1 objectForKey:@"paixu"] integerValue] < [[obj2 objectForKey:@"paixu"] integerValue]) {
+                return (NSComparisonResult)NSOrderedAscending;//升序
+            }
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    };
+    
+    
+    NSArray *array = [sortArray sortedArrayUsingComparator:cmptr];
+    sortArray = [[NSMutableArray alloc]initWithArray:array];
+}
+
 //把请求到的数据排序加入到list中，解决置顶问题
 - (void)addObjectstolist:(NSMutableArray *)list withArray:(NSArray *)dict
 {
@@ -68,12 +89,15 @@
         //NSLog(@"%@",dict);
         if ([type isEqualToString:@"Tongzhi"]){
             [self addObjectstolist:self.notificationList withArray:dict];
+            [self sortDataList:self.notificationList];
         }
         else if ([type isEqualToString:@"Dongtai"]){
             [self addObjectstolist:self.feedList withArray:dict];
+            [self sortDataList:self.feedList];
         }
         else if ([type isEqualToString:@"Huiwu"]){
             [self addObjectstolist:self.affairsList withArray:dict];
+            [self sortDataList:self.affairsList];
         }
         
         completion();

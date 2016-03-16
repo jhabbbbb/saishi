@@ -226,7 +226,7 @@
         
         
         //处理时间
-        cell.timeLabel.text = @"00:00";
+        cell.timeLabel.text = @"00-00 00:00";
         if (indexPath.section == 0){
             cell.timeLabel.text = @"0000-00-00 00:00";
         }
@@ -236,7 +236,7 @@
         NSDate *date = [dateFormatter dateFromString:cell.time];
         if (date){
             //NSLog(@"%@", date);
-            [dateFormatter setDateFormat:@"HH:mm"];
+            [dateFormatter setDateFormat:@"MM-dd HH:mm"];
             if (indexPath.section == 0){
                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             }

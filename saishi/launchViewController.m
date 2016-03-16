@@ -24,10 +24,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    int i = arc4random()%2;//随机选取
+    NSArray *imageArray = @[@"mainBuilding.png", @"9thBuilding.png"];
+    [self.image setImage:[UIImage imageNamed:imageArray[i]]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
+    [self addAnimation];
+}
+
+- (void)addAnimation{
+
+    [UIView animateWithDuration:1.0
+                          delay:0.5
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                        CGRect frame = self.schoolIcon.frame;
+                         frame.origin.x = 15.0;
+                         frame.origin.y = 91.0;
+                         frame.size.width = 72.0;
+                         frame.size.height = 90;
+                         self.schoolIcon.frame = frame;
+                     } completion:nil];
+    
+    [UIView animateWithDuration:1.5
+                          delay:1.5
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         self.schoolName.alpha = 1.0;
+                         self.image.alpha = 1.0;
+                     } completion:^(BOOL finished){
+                         if (finished){
+                             [self autoLogin];
+                         }
+                     }];
+    
+}
+
+//有缓存时自动登录
+- (void)autoLogin {
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *parameter = [userDefaults objectForKey:@"loginInfo"];
     if (parameter) {
@@ -60,8 +99,10 @@
              }
          } failure:^(NSURLSessionDataTask *task, NSError *error) {
              NSLog(@"Error: %@", error);
+             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"登录失败,检查一下网络吧～" delegate:self cancelButtonTitle:@"确定"otherButtonTitles: nil];
+             [alert show];
          }];
-
+        
     }
     else {
         loginViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"loginVC"];

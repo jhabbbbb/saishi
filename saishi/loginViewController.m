@@ -78,6 +78,8 @@
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:@"登录失败,检查一下网络吧～" delegate:self cancelButtonTitle:@"确定"otherButtonTitles: nil];
+        [alert show];
     }];
 
 }

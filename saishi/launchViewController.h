@@ -10,6 +10,11 @@
 #import "AFNetworking.h"
 #import "user.h"
 @interface launchViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *schoolName;
+@property (weak, nonatomic) IBOutlet UIImageView *schoolIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+
+
 
 @property (strong, nonatomic) user *me;
 

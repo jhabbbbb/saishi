@@ -71,7 +71,7 @@
     //获取通知列表
     yeshu = 1;
     [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
-        //NSLog(@"%@", self.list.notificationList);
+        NSLog(@"%@", self.list.notificationList);
         self.loadedData = YES;
         [self.table reloadData];
     }relogin:nil fail:nil];
@@ -235,7 +235,7 @@
         }];
         
         //处理时间
-        cell.timeLabel.text = @"00:00";
+        cell.timeLabel.text = @"00-00 00:00";
         if (indexPath.section == 0){
             cell.timeLabel.text = @"0000-00-00 00:00";
         }
@@ -245,7 +245,7 @@
         NSDate *date = [dateFormatter dateFromString:cell.time];
         if (date){
             //NSLog(@"%@", date);
-            [dateFormatter setDateFormat:@"HH:mm"];
+            [dateFormatter setDateFormat:@"MM-dd HH:mm"];
             if (indexPath.section == 0){
                 [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
             }
