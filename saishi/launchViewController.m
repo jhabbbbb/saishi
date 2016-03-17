@@ -36,6 +36,11 @@
     [self addAnimation];
 }
 
+//禁止 Launchscreen 自动旋转
+- (BOOL)shouldAutorotate{
+    return NO;
+}
+
 - (void)addAnimation{
 
     [UIView animateWithDuration:1.0
