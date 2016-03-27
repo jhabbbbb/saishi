@@ -48,7 +48,7 @@
                         options:UIViewAnimationOptionBeginFromCurrentState
                      animations:^{
                         CGRect frame = self.schoolIcon.frame;
-                         frame.origin.x = 15.0;
+                         frame.origin.x = self.schoolName.frame.origin.x/2 - 36;
                          frame.origin.y = 91.0;
                          frame.size.width = 72.0;
                          frame.size.height = 90;
@@ -61,6 +61,7 @@
                      animations:^{
                          self.schoolName.alpha = 1.0;
                          self.image.alpha = 1.0;
+                         
                      } completion:^(BOOL finished){
                          if (finished){
                              [self autoLogin];

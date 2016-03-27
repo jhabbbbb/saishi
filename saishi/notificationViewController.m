@@ -71,7 +71,7 @@
     //获取通知列表
     yeshu = 1;
     [self.list getDataWithType:@"Tongzhi" yeshu:yeshu complete:^(){
-        NSLog(@"%@", self.list.notificationList);
+        //NSLog(@"%@", self.list.notificationList);
         self.loadedData = YES;
         [self.table reloadData];
     }relogin:nil fail:nil];

@@ -11,6 +11,6 @@
 #import "user.h"
 #import "mainTabBarController.h"
 #import "meViewController.h"
-@interface scheduleViewController : UIViewController
+@interface scheduleViewController : UIViewController<UIWebViewDelegate>
 @property (strong, nonatomic) user *me;
 @end

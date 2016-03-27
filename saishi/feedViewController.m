@@ -79,7 +79,7 @@
     //获取动态列表
     yeshu = 1;
     [self.list getDataWithType:@"Dongtai" yeshu:yeshu complete:^(){
-        NSLog(@"%@", self.list.feedList);
+       // NSLog(@"%@", self.list.feedList);
         self.loadedData = YES;
         [self.table reloadData];
     }relogin:nil fail:nil];

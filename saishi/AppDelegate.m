@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "BNCoreServices.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //initialize SDK
+    [BNCoreServices_Instance initServices:@"xxgveBLdzbOTQyijiqyRqbdO"];
+    [BNCoreServices_Instance startServicesAsyn:nil fail:nil];
+    
     return YES;
 }
 
